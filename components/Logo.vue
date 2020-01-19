@@ -1,0 +1,5 @@
+<template>
+  <a href="">
+    <img src="~/assets/img/logo.png" alt="logo">
+  </a>
+</template>
