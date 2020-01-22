@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<div id="main-app">
 		<div id="wrapper" class="fixed-top">
 			<div class="container-fluid" id="header-container">
@@ -9,7 +9,23 @@
 			<div class="container" id="sidebars-container">
 				<div class="row">
 					<div class="col-3 d-none d-sm-block" id="nav-sidebar">
-						<Sidebar/>
+						<Sidebar>
+							<NavbarLinks>
+								<NavbarLink classes="active" link="link" icon="fa fa-home">حائط النشر</NavbarLink>
+								<NavbarLink link="link" icon="fa fa-calendar-alt">الفعاليات</NavbarLink>
+								<NavbarLink link="link" icon="fa fa-map-marker-alt">الجهات المحلية</NavbarLink>
+								<NavbarLink link="link" icon="fa fa-map">استكشف</NavbarLink>
+								<NavbarSection>الناشر</NavbarSection>
+								<NavbarLink link="link" icon="fa fa-cog">إعدادات الحساب</NavbarLink>
+								<NavbarSection>
+									<slot>جهاتي</slot>
+									<template v-slot:link="">
+										<a href=""> أضف جهة جديدة<i class="fa fa-plus"></i></a>
+									</template>
+								</NavbarSection>
+								<NavbarLink link="link" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
+							</NavbarLinks>
+						</Sidebar>
 					</div>
 					<div class="col-6">
 					</div>
@@ -34,9 +50,15 @@
 <script>
     import Header from '../sections/Header'
     import Sidebar from '../sections/Sidebar'
+    import NavbarLinks from "../components/NavbarLinks";
+    import NavbarLink from "../components/NavbarLink";
+    import NavbarSection from "../components/NavbarSection";
 
     export default {
         components: {
+            NavbarSection,
+            NavbarLink,
+            NavbarLinks,
             Header, Sidebar
         },
         head() {

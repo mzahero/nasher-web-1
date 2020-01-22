@@ -1,21 +1,21 @@
 <template>
-	<div>
-		<input type="text" class="text-input" v-if="search">
-		<Fas/>
+	<div class="input-box" :class="{'with-icon' : icon}">
+		<label class="mb-0">
+			<input :placeholder="placeholder" type="text">
+			<i class="icon" :class="icon" v-if="icon"></i>
+		</label>
 	</div>
 </template>
 
 <script>
-    import Fas from '~/components/Fas.vue'
-
     export default {
         props: {
-            search: {
-                default: true
+            icon: {
+                default: ''
+            },
+            placeholder: {
+                default: ''
             }
-        },
-        components: {
-            Fas
         }
     }
 </script>
@@ -23,12 +23,33 @@
 <style lang="scss">
 	@import "../assets/scss/variables";
 
-	.text-input {
-		border-radius: 4px;
-		border: 1px $search-input-border-color solid;
-		background-color: $search-input-background-color;
-		display: block;
-		width: 100%;
-		padding: 8px 40px 9px 9px;
+	.input-box {
+		label {
+			position: relative;
+			display: block;
+			width: 100%;
+			input {
+				border-radius: 4px;
+				border: 1px $search-input-border-color solid;
+				background-color: $search-input-background-color;
+				display: block;
+				width: 100%;
+				padding: 9px;
+				color: $search-input-color;
+			}
+		}
+		&.with-icon {
+			position: relative;
+			input {
+				padding: 9px 40px 9px 9px;
+			}
+			.icon {
+				position: absolute;
+				top: 50%;
+				right: 15px;
+				transform: translateY(-50%);
+				color: $search-input-color;
+			}
+		}
 	}
 </style>

@@ -1,11 +1,11 @@
 <template>
 	<section class="nav-sidebar">
-		nav-sidebar
+		<slot/>
 	</section>
 </template>
 
 <style scoped lang="scss">
 	.nav-sidebar{
-		height: 700px;
+		min-height: 700px;
 	}
 </style>

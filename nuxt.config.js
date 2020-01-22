@@ -21,11 +21,14 @@ export default {
     /*
     ** Global CSS
     */
-    css: [],
+    css: [
+        '~/assets/scss/vendors/fontawesome/css/fontawesome.min.css',
+    ],
     /*
     ** Plugins to load before mounting the App
     */
-    plugins: [],
+    plugins: [
+    ],
     /*
     ** Nuxt.js dev-modules
     */
@@ -53,5 +56,5 @@ export default {
         */
         extend(config, ctx) {
         }
-    },
+    }
 }

@@ -1,6 +1,27 @@
 @import 'variables';
+@import 'helpers';
+@import 'fonts';
 @import 'vendors/bootstrap';
+@import 'vendors/bootstrap-rtl';
+@import '~bootstrap-vue/src/index.scss';
+
+
+body{
+  font-family: DINNextLTW23, serif;
+}
+
+a{
+  @extend .animate;
+  &:hover{
+    text-decoration: none;
+  }
+}
 
 img {
   width: 100%;
+}
+
+.profile-image{
+  width: 32px;
+  height: 32px;
 }
