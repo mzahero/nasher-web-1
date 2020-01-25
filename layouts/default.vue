@@ -15,14 +15,18 @@
 								<NavbarLink link="link" icon="fa fa-calendar-alt">الفعاليات</NavbarLink>
 								<NavbarLink link="link" icon="fa fa-map-marker-alt">الجهات المحلية</NavbarLink>
 								<NavbarLink link="link" icon="fa fa-map">استكشف</NavbarLink>
-								<NavbarSection>الناشر</NavbarSection>
+							</NavbarLinks>
+							<NavbarSection classes="px-3">الناشر</NavbarSection>
+							<NavbarLinks>
 								<NavbarLink link="link" icon="fa fa-cog">إعدادات الحساب</NavbarLink>
-								<NavbarSection>
-									<slot>جهاتي</slot>
-									<template v-slot:link="">
-										<a href=""> أضف جهة جديدة<i class="fa fa-plus"></i></a>
-									</template>
-								</NavbarSection>
+							</NavbarLinks>
+							<NavbarSection classes="px-3">
+								<slot>جهاتي</slot>
+								<template v-slot:link="">
+									<a href=""> أضف جهة جديدة<i class="fa fa-plus"></i></a>
+								</template>
+							</NavbarSection>
+							<NavbarLinks>
 								<NavbarLink link="link" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
 							</NavbarLinks>
 						</Sidebar>
@@ -30,7 +34,35 @@
 					<div class="col-6">
 					</div>
 					<div class="col-3 d-none d-sm-block" id="widgets-sidebar">
-						<Sidebar/>
+						<Sidebar>
+							<WeatherWidget bg="https://picsum.photos/284/190">
+								<template slot="location">المملكة العربية السعودية - الرياض</template>
+								<template slot="temperature">32</template>
+								<template slot="status">غائم جزئياً</template>
+							</WeatherWidget>
+							<NavbarSection>
+								<slot>موقعك الجغرافي الآن</slot>
+								<template v-slot:link="">
+									<a href="">تعديل</a>
+								</template>
+							</NavbarSection>
+							<Map :center="{lat: 24.7255553,lng: 46.5423382}"/>
+							<NavbarSection>يحدث قريباً منك</NavbarSection>
+							<ul class="nav p-0 row">
+								<li class="nav-item">
+									<a class="nav-link" href="">عن ناشر</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="">عن ناشر</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="">عن ناشر</a>
+								</li>
+							</ul>
+							<div class="copyrights">
+								© 2020 كافة الحقوق محفوظة لناشر
+							</div>
+						</Sidebar>
 					</div>
 				</div>
 			</div>
@@ -53,9 +85,13 @@
     import NavbarLinks from "../components/NavbarLinks";
     import NavbarLink from "../components/NavbarLink";
     import NavbarSection from "../components/NavbarSection";
+    import WeatherWidget from "../components/WeatherWidget";
+    import Map from "../components/Map";
 
     export default {
         components: {
+            Map,
+            WeatherWidget,
             NavbarSection,
             NavbarLink,
             NavbarLinks,
@@ -75,7 +111,8 @@
 	@import "../assets/scss/app";
 
 	#main-app {
-		background-color: $app-background-color; overflow: hidden;
+		background-color: $app-background-color;
+		overflow: hidden;
 		#wrapper {
 			#header-container {
 				background-color: $header-background-color;
@@ -98,6 +135,32 @@
 
 			}
 		}
+	}
+
+	.nav {
+		.nav-item {
+			position: relative;
+			.nav-link{
+				font-size: 14px;
+				font-weight: 500;
+				color: #767676;
+			}
+			&:after {
+				content: '•';
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				left: -5px;
+				color: #767676;
+			}
+			&:last-child:after{
+				display: none;
+			}
+		}
+	}
+	.copyrights{
+		color: #767676;
+		font-size: 13px;
 	}
 </style>
 

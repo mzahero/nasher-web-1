@@ -1,7 +1,7 @@
 <template>
-	<li class="navbar-section">
-		<div class="d-flex align-items-center px-3" :class="classes">
-			<div class="icon-wrap align-content-center align-items-center d-flex caption" style="height: 32px;">
+	<div class="navbar-section">
+		<div class="d-flex align-items-center" :class="classes">
+			<div class="icon-wrap align-content-center align-items-center d-flex caption">
 				<slot></slot>
 			</div>
 			<div class="px-2 ml-auto">
@@ -10,7 +10,7 @@
 				</span>
 			</div>
 		</div>
-	</li>
+	</div>
 </template>
 
 <script>
@@ -30,8 +30,8 @@
 	@import "../assets/scss/variables";
 	@import "../assets/scss/helpers";
 
-	li.navbar-section {
-		margin: 6px 0;
+	div.navbar-section {
+		margin: 10px 0;
 		.caption{
 			font-size: 14px;
 			font-weight: 500;

@@ -27,7 +27,13 @@ export default {
     /*
     ** Plugins to load before mounting the App
     */
+
+    env: {
+        VUE_APP_GOOGLE_MAPS_API_KEY: process.env.VUE_APP_GOOGLE_MAPS_API_KEY
+    },
+
     plugins: [
+        '@/plugins/google-maps'
     ],
     /*
     ** Nuxt.js dev-modules
