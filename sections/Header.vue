@@ -5,7 +5,7 @@
 				<Logo id="logo" />
 			</div>
 			<div class="col-6">
-				<Input :placeholder="searchInputPlaceholder" icon="fa fa-search" />
+				<Input :placeholder="searchInputPlaceholder" class="bg-light" icon="fa fa-search" />
 			</div>
 			<div class="col-3 text-left">
 				<b-dropdown no-caret variant="link">

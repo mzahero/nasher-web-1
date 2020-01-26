@@ -31,7 +31,8 @@
 			input {
 				border-radius: 4px;
 				border: 1px $search-input-border-color solid;
-				background-color: $search-input-background-color;
+				background-color: transparent;
+				//background-color: $search-input-background-color;
 				display: block;
 				width: 100%;
 				padding: 9px;

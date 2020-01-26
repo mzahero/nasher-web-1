@@ -47,7 +47,6 @@
 								</template>
 							</NavbarSection>
 							<Map :center="{lat: 24.7255553,lng: 46.5423382}"/>
-							<NavbarSection>يحدث قريباً منك</NavbarSection>
 							<ul class="nav p-0 row">
 								<li class="nav-item">
 									<a class="nav-link" href="">عن ناشر</a>
@@ -114,22 +113,27 @@
 		background-color: $app-background-color;
 		overflow: hidden;
 		#wrapper {
+			pointer-events: none;
 			#header-container {
+				pointer-events: auto;
 				background-color: $header-background-color;
 				border-bottom: 1px $header-border-color solid;
 			}
 			#sidebars-container {
 				margin-top: 30px;
 				#nav-sidebar {
+					pointer-events: auto;
 					border-left: 1px $page-content-border-color solid;
 				}
 				#widgets-sidebar {
+					pointer-events: auto;
 					border-right: 1px $page-content-border-color solid;
 				}
 			}
 		}
 
 		#view {
+			min-height: 800px;
 			margin-top: 100px;
 			#page-content {
 
