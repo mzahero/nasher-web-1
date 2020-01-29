@@ -1,13 +1,17 @@
 <template>
 	<span class="comment-counter d-flex align-items-center">
-		<i class="fa fa-comment icon"></i>
-		<span class="content">20</span>
+		<i class="far fa-comment icon"></i>
+		<span class="content" v-text="commentsCount">20</span>
 	</span>
 </template>
 
 <script>
     export default {
-        props: {}
+        props: {
+            commentsCount: {
+                default : 0
+            }
+        }
     }
 </script>
 

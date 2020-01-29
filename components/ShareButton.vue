@@ -1,8 +1,13 @@
 <template>
-	<span class="share-button d-flex align-items-center">
-		<i class="fa fa-share-alt icon"></i>
-		<span class="content">شارك</span>
-	</span>
+	<b-dropdown no-caret variant="link" class="share-button d-flex align-items-center">
+		<template slot="button-content">
+			<i class="far fa-share-alt icon"></i>
+			<span class="content">شارك</span>
+		</template>
+		<b-dropdown-item href="#">•••</b-dropdown-item>
+		<b-dropdown-item href="#">•••</b-dropdown-item>
+		<b-dropdown-item href="#">•••</b-dropdown-item>
+	</b-dropdown>
 </template>
 
 <script>
@@ -16,12 +21,13 @@
 	@import "../assets/scss/helpers";
 
 	.share-button {
-		color: #030f09;
-		.icon{
+		.icon {
+			color: #030f09;
 			font-size: 22px;
 			margin: 0 6px;
 		}
-		.content{
+		.content {
+			color: #030f09;
 			font-size: 16px;
 		}
 	}

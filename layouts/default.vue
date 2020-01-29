@@ -11,21 +11,21 @@
 					<div class="col-3 d-none d-sm-block" id="nav-sidebar">
 						<Sidebar>
 							<NavbarLinks>
-								<NavbarLink classes="active" link="link" icon="fa fa-home">حائط النشر</NavbarLink>
-								<NavbarLink link="link" icon="fa fa-calendar-alt">الفعاليات</NavbarLink>
-								<NavbarLink link="link" icon="fa fa-map-marker-alt">الجهات المحلية</NavbarLink>
-								<NavbarLink link="link" icon="fa fa-map">استكشف</NavbarLink>
+								<NavbarLink classes="active" link="link" icon="far fa-home">حائط النشر</NavbarLink>
+								<NavbarLink link="link" icon="far fa-calendar-alt">الفعاليات</NavbarLink>
+								<NavbarLink link="link" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
+								<NavbarLink link="link" icon="far fa-map">استكشف</NavbarLink>
 							</NavbarLinks>
-							<NavbarSection classes="px-3">الناشر</NavbarSection>
+							<SectionTitle classes="px-3">الناشر</SectionTitle>
 							<NavbarLinks>
-								<NavbarLink link="link" icon="fa fa-cog">إعدادات الحساب</NavbarLink>
+								<NavbarLink link="link" icon="far fa-cog">إعدادات الحساب</NavbarLink>
 							</NavbarLinks>
-							<NavbarSection classes="px-3">
+							<SectionTitle classes="px-3">
 								<slot>جهاتي</slot>
 								<template v-slot:link="">
-									<a href=""> أضف جهة جديدة<i class="fa fa-plus"></i></a>
+									<a href=""> أضف جهة جديدة<i class="far fa-plus"></i></a>
 								</template>
-							</NavbarSection>
+							</SectionTitle>
 							<NavbarLinks>
 								<NavbarLink link="link" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
 							</NavbarLinks>
@@ -40,12 +40,12 @@
 								<template slot="temperature">32</template>
 								<template slot="status">غائم جزئياً</template>
 							</WeatherWidget>
-							<NavbarSection>
+							<SectionTitle>
 								<slot>موقعك الجغرافي الآن</slot>
 								<template v-slot:link="">
 									<a href="">تعديل</a>
 								</template>
-							</NavbarSection>
+							</SectionTitle>
 							<Map :center="{lat: 24.7255553,lng: 46.5423382}"/>
 							<ul class="nav p-0 row">
 								<li class="nav-item">
@@ -83,7 +83,7 @@
     import Sidebar from '../sections/Sidebar'
     import NavbarLinks from "../components/NavbarLinks";
     import NavbarLink from "../components/NavbarLink";
-    import NavbarSection from "../components/NavbarSection";
+    import SectionTitle from "../components/SectionTitle";
     import WeatherWidget from "../components/WeatherWidget";
     import Map from "../components/Map";
 
@@ -91,17 +91,22 @@
         components: {
             Map,
             WeatherWidget,
-            NavbarSection,
+            SectionTitle,
             NavbarLink,
             NavbarLinks,
             Header, Sidebar
         },
-        head() {
-            return {
-                htmlAttrs: {
-                    dir: 'rtl'
-                }
-            }
+        mounted() {
+            $('.owl-one-item').owlCarousel({
+		            items: 1,
+                margin: 10
+            });
+            $('.owl-four-items').owlCarousel({
+                items: 4,
+                dots: false,
+                rtl: true,
+                margin: 10
+            });
         }
     }
 </script>
@@ -144,7 +149,7 @@
 	.nav {
 		.nav-item {
 			position: relative;
-			.nav-link{
+			.nav-link {
 				font-size: 14px;
 				font-weight: 500;
 				color: #767676;
@@ -157,12 +162,13 @@
 				left: -5px;
 				color: #767676;
 			}
-			&:last-child:after{
+			&:last-child:after {
 				display: none;
 			}
 		}
 	}
-	.copyrights{
+
+	.copyrights {
 		color: #767676;
 		font-size: 13px;
 	}

@@ -3,16 +3,22 @@
 @import 'fonts';
 @import 'vendors/bootstrap';
 @import 'vendors/bootstrap-rtl';
+@import 'vendors/fontawesome/fontawesome';
+@import 'vendors/fontawesome/regular';
+@import 'vendors/fontawesome/solid';
 @import '~bootstrap-vue/src/index.scss';
 
+.media-body {
+  min-width: 0;
+}
 
-body{
+body {
   font-family: DINNextLTW23, serif;
 }
 
-a{
+a {
   @extend .animate;
-  &:hover{
+  &:hover {
     text-decoration: none;
   }
 }
@@ -21,7 +27,33 @@ img {
   width: 100%;
 }
 
-.profile-image{
+.profile-image {
   width: 32px;
   height: 32px;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.owl-carousel.no-overflow .owl-stage-outer {
+  overflow: visible;
+}
+
+.owl-dots{
+  margin: 10px 0;
+  text-align: center;
+  .owl-dot{
+    span {
+      margin: 4px;
+      display: block;
+      width: 10px;
+      height: 10px;
+      background-color: #e6e6e6;
+      border-radius: 50%;
+    }
+    &.active span{
+      background-color: $success;
+    }
+  }
 }

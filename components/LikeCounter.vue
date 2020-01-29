@@ -1,13 +1,20 @@
 <template>
-	<span class="like-counter d-flex align-items-center">
-		<i class="fa fa-heart icon"></i>
-		<span class="content">20</span>
+	<span class="like-counter d-flex align-items-center" :class="{'liked' : isLiked}">
+		<i class="icon fa-heart" :class="isLiked ? 'fa' : 'far'"></i>
+		<span class="content" v-text="likesCount"></span>
 	</span>
 </template>
 
 <script>
     export default {
-        props: {}
+        props: {
+            likesCount: {
+                default : 20
+            },
+		        isLiked : {
+                default: true
+		        }
+        }
     }
 </script>
 
@@ -16,13 +23,15 @@
 	@import "../assets/scss/helpers";
 
 	.like-counter {
-		color: #f84949;
 		.icon{
 			font-size: 22px;
 			margin: 0 6px;
 		}
 		.content{
 			font-size: 16px;
+		}
+		&.liked{
+			color: #f84949;
 		}
 	}
 </style>

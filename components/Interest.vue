@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="interest-card mx-2 rounded">
+		<div class="interest-card rounded">
 			<div class="image">
 				<img :src="img" :alt="title">
 			</div>

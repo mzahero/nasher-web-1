@@ -6,7 +6,7 @@
 					<slot name="location"></slot>
 				</span>
 				<span class="icon">
-					<i class="fa fa-map-marker-alt align-middle d-inline-block"></i>
+					<i class="far fa-map-marker-alt align-middle d-inline-block"></i>
 				</span>
 			</div>
 

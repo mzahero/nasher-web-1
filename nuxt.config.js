@@ -11,7 +11,27 @@ export default {
             {hid: 'description', name: 'description', content: process.env.npm_package_description || ''}
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+            {
+                rel: "stylesheet",
+                type: "text/css",
+                href: 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css'
+            },
+            {
+                rel: "stylesheet",
+                type: "text/css",
+                href: 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css'
+            }
+        ],
+        script: [
+            {
+                src: "https://code.jquery.com/jquery-3.3.1.slim.min.js",
+                type: "text/javascript"
+            },
+            {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js",
+                type: "text/javascript"
+            }
         ]
     },
     /*
@@ -21,9 +41,7 @@ export default {
     /*
     ** Global CSS
     */
-    css: [
-        '~/assets/scss/vendors/fontawesome/css/fontawesome.min.css',
-    ],
+    css: [],
     /*
     ** Plugins to load before mounting the App
     */
@@ -33,7 +51,7 @@ export default {
     },
 
     plugins: [
-        '@/plugins/google-maps'
+        '@/plugins/google-maps',
     ],
     /*
     ** Nuxt.js dev-modules

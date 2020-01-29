@@ -1,3 +1,7 @@
+$fa-font-path: "~assets/fonts/FontAwesomePro";
+$primary: #96c751;
+$success: #30be76;
+
 $container-max-widths: (
         sm: 540px,
         md: 720px,
@@ -9,7 +13,7 @@ $container-max-widths: (
 $header-background-color: #ffffff;
 $header-border-color: #e6e6e6;
 $page-content-border-color: #dbdbdb;
-$app-background-color: rgb(239,240,242);
+$app-background-color: rgb(239, 240, 242);
 $search-input-background-color: #eff0f2;
 $search-input-border-color: #e6e6e6;
 $search-input-color: #888888;
