@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div>
 		<b-card class="mb-3">
 			<SectionTitle class="mt-0">الفعاليات القادمة</SectionTitle>
 			<div class="owl-carousel text-center owl-four-items">

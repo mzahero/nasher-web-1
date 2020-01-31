@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div>
 		<b-card class="mb-3">
 			<SectionTitle class="mt-0">بماذا انت مهتم؟</SectionTitle>
 			<div class="owl-carousel owl-four-items">

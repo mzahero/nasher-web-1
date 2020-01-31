@@ -10,6 +10,16 @@
 				<div class="row">
 					<div class="col-3 d-none d-sm-block" id="nav-sidebar">
 						<Sidebar>
+							<nuxt-link class="d-flex align-items-center px-3 mb-3 profile-link" to="profile">
+								<div class="icon-wrap align-content-center align-items-center d-flex">
+									<img class="rounded-circle" src="https://picsum.photos/42/42" alt="user image">
+								</div>
+								<div class="px-2">
+									<span class="title">
+										حسام عبد
+									</span>
+								</div>
+							</nuxt-link>
 							<NavbarLinks>
 								<NavbarLink link="/" icon="far fa-home">حائط النشر</NavbarLink>
 								<NavbarLink link="/events" icon="far fa-calendar-alt">الفعاليات</NavbarLink>
@@ -117,6 +127,17 @@
 				#nav-sidebar {
 					pointer-events: auto;
 					border-left: 1px $page-content-border-color solid;
+					.profile-link{
+						img{
+							width: 42px;
+							height: 42px;
+						}
+						.title{
+							font-size: 20px;
+							font-weight: 500;
+							color: #3e3f42;
+						}
+					}
 				}
 				#widgets-sidebar {
 					pointer-events: auto;
