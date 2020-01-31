@@ -2,7 +2,7 @@
 	<div>
 		<div class="interest-card rounded">
 			<div class="image">
-				<img :src="img" :alt="title">
+				<b-img :src="img" :alt="title"></b-img>
 			</div>
 			<div class="title text-center text-white" v-text="title"></div>
 		</div>

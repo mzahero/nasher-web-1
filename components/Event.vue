@@ -7,7 +7,7 @@
 				class="mb-3"
 				no-body
 		>
-			<event-sub-details/>
+			<event-sub-details :location="location" :time="time" v-if="image" />
 			<b-card-body>
 				<b-media>
 					<template v-slot:aside>
@@ -43,6 +43,7 @@
 					<share-button class="ml-auto" />
 				</div>
 			</b-card-body>
+			<event-sub-details :location="location" :time="time" v-if="!image" />
 			<template v-if="comments.length">
 				<hr class="mt-0">
 				<b-card-body class="py-0">
@@ -92,11 +93,17 @@
             'day' : {
                 default: '21'
             },
+            'location': {
+                default: 'الرياض, المملكة العربية السعودية'
+            },
+            'time' : {
+                default: '12:00PM'
+            },
             'content': {
                 default: '<h3>عنوان المنشور</h3><p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق</p>'
             },
             'image': {
-                default: 'https://picsum.photos/800/350'
+                default: ''
             },
             'comments': {
                 default: [

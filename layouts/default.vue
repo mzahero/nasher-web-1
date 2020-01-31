@@ -11,10 +11,10 @@
 					<div class="col-3 d-none d-sm-block" id="nav-sidebar">
 						<Sidebar>
 							<NavbarLinks>
-								<NavbarLink classes="active" link="link" icon="far fa-home">حائط النشر</NavbarLink>
-								<NavbarLink link="link" icon="far fa-calendar-alt">الفعاليات</NavbarLink>
-								<NavbarLink link="link" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
-								<NavbarLink link="link" icon="far fa-map">استكشف</NavbarLink>
+								<NavbarLink link="/" icon="far fa-home">حائط النشر</NavbarLink>
+								<NavbarLink link="/events" icon="far fa-calendar-alt">الفعاليات</NavbarLink>
+								<NavbarLink link="/link" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
+								<NavbarLink link="/link" icon="far fa-map">استكشف</NavbarLink>
 							</NavbarLinks>
 							<SectionTitle classes="px-3">الناشر</SectionTitle>
 							<NavbarLinks>
@@ -95,18 +95,6 @@
             NavbarLink,
             NavbarLinks,
             Header, Sidebar
-        },
-        mounted() {
-            $('.owl-one-item').owlCarousel({
-		            items: 1,
-                margin: 10
-            });
-            $('.owl-four-items').owlCarousel({
-                items: 4,
-                dots: false,
-                rtl: true,
-                margin: 10
-            });
         }
     }
 </script>

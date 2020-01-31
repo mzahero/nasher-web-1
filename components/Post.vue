@@ -1,7 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<div class="post">
 		<b-card class="mb-3" no-body :header="header ? header : ''">
-
 			<b-card-body>
 				<b-media>
 					<template v-slot:aside="">

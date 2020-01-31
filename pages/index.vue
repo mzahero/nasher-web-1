@@ -8,6 +8,8 @@
 		</b-card>
 		<!--Start posts-->
 
+		<lazyLoadPost v-if="loading"/>
+
 		<post avatar="https://picsum.photos/100/100"
 		      name="محمد العربي"
 		      posted-by="أحمد دهيان"
@@ -115,13 +117,16 @@
     import SectionTitle from "../components/SectionTitle";
     import Post from "../components/Post";
     import Event from "../components/Event";
+    import LazyLoadPost from "../components/LazyLoadPost";
 
     export default {
+        loading: false,
         components: {
             Event,
             Interest,
             SectionTitle,
             Post,
+            LazyLoadPost,
         },
         props: {
             interests: {
@@ -133,6 +138,18 @@
                     {img: 'https://picsum.photos/130/110', title: 'آخرى'}
                 ]
             }
+        },
+        mounted() {
+            $('.owl-one-item').owlCarousel({
+                items: 1,
+                margin: 10
+            });
+            $('.owl-four-items').owlCarousel({
+                items: 4,
+                dots: false,
+                rtl: true,
+                margin: 10
+            });
         }
     }
 </script>

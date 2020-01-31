@@ -1,6 +1,6 @@
 <template>
 	<li class="navbar-link">
-		<a class="d-flex align-items-center px-3" :class="classes" :href="link">
+		<nuxt-link :class="{'active' : $nuxt.$route.path === link}" class="d-flex align-items-center px-3" :to="link">
 			<div class="icon-wrap align-content-center align-items-center d-flex" style="width: 32px; height: 32px;">
 				<img v-if="image" width="28px" class="rounded-circle profile-image" :src="image" alt="user image">
 				<i v-if="icon" :class="icon" class="m-auto"></i>
@@ -10,7 +10,7 @@
 					<slot></slot>
 				</span>
 			</div>
-		</a>
+		</nuxt-link>
 	</li>
 </template>
 
