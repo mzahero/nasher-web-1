@@ -27,6 +27,15 @@
 			</b-media>
 		</b-card>
 
+		<!--End posts-->
+		<b-card class="mb-3 text-center">
+			<p class="text-muted">هنا تكون نهاية المطاف للمزيد قم بـ</p>
+			<div class="buttons">
+				<B-button class="m-2" rounded variant="outline-secondary">تغيير الموقع الجغرافي</B-button>
+				<b-button class="m-2" rounded variant="outline-secondary">متابعة محتوى ناشر</b-button>
+			</div>
+		</b-card>
+
 	</div>
 </template>
 
