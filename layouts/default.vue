@@ -23,7 +23,7 @@
 							<NavbarLinks>
 								<NavbarLink link="/" icon="far fa-home">حائط النشر</NavbarLink>
 								<NavbarLink link="/events" icon="far fa-calendar-alt">الفعاليات</NavbarLink>
-								<NavbarLink link="/link" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
+								<NavbarLink link="/communities" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
 								<NavbarLink link="/link" icon="far fa-map">استكشف</NavbarLink>
 							</NavbarLinks>
 							<SectionTitle classes="px-3">الناشر</SectionTitle>
