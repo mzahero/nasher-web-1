@@ -191,12 +191,12 @@ th {
 
         .#{$abbrev}r#{$infix}-#{$size},
         .#{$abbrev}x#{$infix}-#{$size} {
-          #{$prop}-right: 0 !important;
+          #{$prop}-right: 0;
           #{$prop}-left: $length !important;
         }
         .#{$abbrev}l#{$infix}-#{$size},
         .#{$abbrev}x#{$infix}-#{$size} {
-          #{$prop}-left: 0 !important;
+          #{$prop}-left: 0;
           #{$prop}-right: $length !important;
         }
       }

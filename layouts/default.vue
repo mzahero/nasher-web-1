@@ -28,7 +28,7 @@
 							</NavbarLinks>
 							<SectionTitle classes="px-3">الناشر</SectionTitle>
 							<NavbarLinks>
-								<NavbarLink link="link" icon="far fa-cog">إعدادات الحساب</NavbarLink>
+								<NavbarLink link="/settings" icon="far fa-cog">إعدادات الحساب</NavbarLink>
 							</NavbarLinks>
 							<SectionTitle classes="px-3">
 								<slot>جهاتي</slot>

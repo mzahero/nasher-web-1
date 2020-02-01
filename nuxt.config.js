@@ -52,6 +52,8 @@ export default {
 
     plugins: [
         '@/plugins/google-maps',
+        '@/plugins/vue-js-toggle-button',
+        '@/plugins/vue-slider-component'
     ],
     /*
     ** Nuxt.js dev-modules
