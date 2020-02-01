@@ -57,13 +57,20 @@
 			<b-list-group-item class="position-relative d-flex">
 				<span class="option-title fixed-width">المدينة</span>
 				<span class="option-value w-100">
-					<input type="text" class="border-0 w-100" v-model="city">
+					<multiselect dir="rtl" class="w-50" :options="cities" v-model="city" track-by="title" label="title" :allow-empty="false"
+					             select-label="" selected-label="" deselect-label="" placeholder="">
+						<template slot="singleLabel" slot-scope="props">
+							<div class="text-right">{{ props.option.title }}</div>
+						</template>
+						<template slot="noResult">لا يوجد نتائج!</template>
+					</multiselect>
 				</span>
 			</b-list-group-item>
 			<b-list-group-item class="position-relative d-flex">
 				<span class="option-title fixed-width">النطاق</span>
 				<span class="option-value w-50 py-1">
-					<vue-slider :max="50" :min="5" :interval="5" v-model="range" direction="rtl" :process-style="{ backgroundColor: '#6bda75' }" :tooltip-style="{ backgroundColor: '#6bda75' }"/>
+					<vue-slider :max="50" :min="5" :interval="5" v-model="range" direction="rtl"
+					            :process-style="{ backgroundColor: '#6bda75' }" :tooltip-style="{ backgroundColor: '#6bda75' }"/>
 				</span>
 				<span class="option-value w-50 mx-3 text-muted">
 					{{ range }} كم
@@ -119,28 +126,32 @@
 
     export default {
         components: {SectionTitle},
-        props: {
-
-        },
+        props: {},
         data: function () {
             return {
-                avatar : 'https://picsum.photos/100/100',
-                fullname : 'حسام عبد',
-                website : 'linkati.me/hussam3bd',
-                phone : '905535850390',
-                email : 'hussam@linkati.me',
-                city : 'الرياض',
-                range : 10,
-                username : 'hussam3bd',
-                password : '12345',
-                notifications : true,
-                bio : 'لا يوجد شرح قصير',
+                avatar: 'https://picsum.photos/100/100',
+                fullname: 'حسام عبد',
+                website: 'linkati.me/hussam3bd',
+                phone: '905535850390',
+                email: 'hussam@linkati.me',
+                city: 'الرياض',
+                range: 10,
+                username: 'hussam3bd',
+                password: '12345',
+                notifications: true,
+                bio: 'لا يوجد شرح قصير',
+                cities: [
+                    {title: 'الرياض'},
+                    {title: 'جدة'},
+                    {title: 'المدينة'},
+                    {title: 'مكة'},
+                ]
             }
         },
         mounted() {
 
         },
-		    methods: {
+        methods: {
             alert(event) {
                 console.log("event");
                 console.log(event);

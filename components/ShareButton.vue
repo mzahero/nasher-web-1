@@ -1,5 +1,5 @@
 <template>
-	<b-dropdown no-caret variant="link" class="share-button d-flex align-items-center">
+	<b-dropdown dropup no-caret variant="link" class="share-button d-flex align-items-center">
 		<template slot="button-content">
 			<i class="far fa-share-alt icon"></i>
 			<span class="content">شارك</span>

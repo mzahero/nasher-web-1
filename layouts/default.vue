@@ -37,7 +37,7 @@
 								</template>
 							</SectionTitle>
 							<NavbarLinks>
-								<NavbarLink link="link" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
+								<NavbarLink link="/community" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
 							</NavbarLinks>
 						</Sidebar>
 					</div>
