@@ -134,7 +134,7 @@
                 website: 'linkati.me/hussam3bd',
                 phone: '905535850390',
                 email: 'hussam@linkati.me',
-                city: {title: 'الرياض'},
+                city: 'الرياض',
                 range: 10,
                 username: 'hussam3bd',
                 password: '12345',

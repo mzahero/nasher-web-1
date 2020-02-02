@@ -59,13 +59,7 @@
 			</b-card-body>
 		</b-card>
 
-		<div class="no-click" v-b-modal.modal-1="true">
-			<create-active class="bg-white rounded" />
-		</div>
-
-		<b-modal body-class="p-0" size="lg" hide-footer hide-header centered id="modal-1" title="BootstrapVue">
-			<create-active/>
-		</b-modal>
+		<create-active class="bg-white rounded"/>
 
 		<template v-if="closestEvent">
 

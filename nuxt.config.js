@@ -54,6 +54,7 @@ export default {
         '@/plugins/google-maps',
         '@/plugins/vue-js-toggle-button',
         '@/plugins/vue-slider-component',
+        '@/plugins/vue-datetime',
         '@/plugins/vue-multiselect'
     ],
     /*
