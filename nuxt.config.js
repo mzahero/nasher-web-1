@@ -55,7 +55,8 @@ export default {
         '@/plugins/vue-js-toggle-button',
         '@/plugins/vue-slider-component',
         '@/plugins/vue-datetime',
-        '@/plugins/vue-multiselect'
+        '@/plugins/vue-multiselect',
+        '@/plugins/vue-upload-component'
     ],
     /*
     ** Nuxt.js dev-modules

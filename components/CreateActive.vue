@@ -25,10 +25,10 @@
 						التاريخ والوقت
 					</div>
 					<div class="w-50 pr-2">
-						<date-time class="left" icon="far fa-clock left" />
+						<date-time class="left" icon="far fa-clock left"/>
 					</div>
 					<div class="w-50 pl-2">
-						<date-time icon="far fa-clock left" />
+						<date-time icon="far fa-clock left"/>
 					</div>
 				</div>
 				<div class="d-flex align-items-center pb-3">
@@ -54,11 +54,26 @@
 			</b-tab>
 		</b-tabs>
 
+		<post-image-uplouder/>
+
 		<div class="p-3">
 			<hr class="m-0">
 			<div class="d-flex align-items-center pt-3">
-				<b-button class="border-left rounded-0 text-muted" variant="link"><i class="far fa-image"></i> اختيار الصورة
-				</b-button>
+				<file-upload
+						extensions="gif,jpg,jpeg,png,webp"
+						accept="image/png,image/gif,image/jpeg,image/webp"
+						name="avatar"
+						class="btn btn-primary"
+						post-action="/upload/post"
+						:drop="!edit"
+						v-model="files"
+						@input-filter="inputFilter"
+						@input-file="inputFile"
+						ref="upload">
+					<b-button class="border-left rounded-0 text-muted" variant="link">
+						<i class="far fa-image"></i> اختيار الصورة
+					</b-button>
+				</file-upload>
 				<b-button class="rounded-0 text-muted" variant="link"><i class="far fa-video"></i> إضافة فيديو</b-button>
 
 				<div class="ml-auto">
@@ -75,26 +90,27 @@
     import Input from "./Input";
     import Textarea from "./Textarea";
     import DateTime from "./DateTime";
+    import PostImageUplouder from "./PostImageUplouder";
 
     export default {
-        components: {DateTime, Textarea, Input},
+        components: {PostImageUplouder, DateTime, Textarea, Input},
         props: {
             cities: {
-                default : [
-		                {title : 'الرياض'},
-                    {title : 'جدة'},
-                    {title : 'المدينة'},
-                    {title : 'مكة'},
+                default: [
+                    {title: 'الرياض'},
+                    {title: 'جدة'},
+                    {title: 'المدينة'},
+                    {title: 'مكة'},
                 ]
             }
         },
-		    data: () => {
+        data: () => {
             return {
                 date: '',
                 time: '',
-		            city: {title : 'جدة'},
+                city: {title: 'جدة'},
             }
-		    }
+        }
     }
 </script>
 
