@@ -54,26 +54,10 @@
 			</b-tab>
 		</b-tabs>
 
-		<post-image-uplouder/>
-
 		<div class="p-3">
 			<hr class="m-0">
 			<div class="d-flex align-items-center pt-3">
-				<file-upload
-						extensions="gif,jpg,jpeg,png,webp"
-						accept="image/png,image/gif,image/jpeg,image/webp"
-						name="avatar"
-						class="btn btn-primary"
-						post-action="/upload/post"
-						:drop="!edit"
-						v-model="files"
-						@input-filter="inputFilter"
-						@input-file="inputFile"
-						ref="upload">
-					<b-button class="border-left rounded-0 text-muted" variant="link">
-						<i class="far fa-image"></i> اختيار الصورة
-					</b-button>
-				</file-upload>
+				<b-button class="rounded-0 text-muted border-left" variant="link"><i class="far fa-image"></i> اختيار الصورة</b-button>
 				<b-button class="rounded-0 text-muted" variant="link"><i class="far fa-video"></i> إضافة فيديو</b-button>
 
 				<div class="ml-auto">
