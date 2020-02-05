@@ -1,5 +1,5 @@
 <template>
-  <a href="">
-    <img src="~/assets/img/logo.png" alt="logo">
-  </a>
+	<nuxt-link to="/">
+		<img src="~/assets/img/logo.png" alt="logo">
+	</nuxt-link>
 </template>

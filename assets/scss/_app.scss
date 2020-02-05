@@ -27,13 +27,16 @@ img {
   width: 100%;
 }
 
+ul{
+  padding: 0;
+  li:after {
+    display: none;
+  }
+}
+
 .profile-image {
   width: 32px;
   height: 32px;
-}
-
-.card {
-  overflow: hidden;
 }
 
 .owl-carousel.no-overflow .owl-stage-outer {

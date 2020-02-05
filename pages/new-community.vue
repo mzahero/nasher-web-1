@@ -1,188 +1,192 @@
 <template>
-	<div>
-		<h2>
-			إعدادات الحساب
-		</h2>
-		<p class="w-50 text-muted">
-			هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص.
-		</p>
-		<b-card class="mb-3 avatar-card">
-			<b-media vertical-align="center" no-body>
-				<b-media-aside vertical-align="center">
-					<b-img class="rounded-circle avatar" :src="avatar" :alt="fullname"></b-img>
-				</b-media-aside>
-				<b-media-body class="align-self-center ml-4">
-					<div class="option-title mb-2">
-						اختيار الصورة الشخصية
-					</div>
-					<div class="select-image">
-						<b-button rounded variant="outline-secondary">اختيار</b-button>
-					</div>
-				</b-media-body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="text-center">
+					<h2>إنشاء جهة جديدة</h2>
+					<p class="text-muted pt-2 w-50 m-auto">قم بالتعريف عن جهتك لإستهداف العملاء المحليين, ومشاركتهم الفعاليات و
+					                                       منشوراتكم.</p>
+				</div>
+				<div>
+					<b-card class="mt-3">
+						<div class="row justify-content-center">
+							<div class="col-md-10">
+								<b-tabs v-model="tabIndex" content-class="pt-3 pb-3 align-items-center"
+								        nav-class="steps d-flex justify-content-between"
+								        active-nav-item-class="active" justified>
+									<b-tab title="التصنيف" active>
+										<div class="row justify-content-center">
+											<div class="col-8">
+												<section-title>قم بتحديد التصنيف</section-title>
+												<div>
+													<multiselect dir="rtl" :options="cities" v-model="city" track-by="title" label="title"
+													             :allow-empty="false"
+													             select-label="" selected-label="" deselect-label="" placeholder="">
+														<template slot="singleLabel" slot-scope="props">
+															<div class="text-right">{{ props.option.title }}</div>
+														</template>
+														<template slot="noResult">لا يوجد نتائج!</template>
+													</multiselect>
+												</div>
 
-			</b-media>
-		</b-card>
+												<section-title>قم بتحديد التصنيف الفرعي</section-title>
 
+												<div>
+													<multiselect dir="rtl" :options="cities" v-model="city" track-by="title" label="title"
+													             :allow-empty="false"
+													             select-label="" selected-label="" deselect-label="" placeholder="">
+														<template slot="singleLabel" slot-scope="props">
+															<div class="text-right">{{ props.option.title }}</div>
+														</template>
+														<template slot="noResult">لا يوجد نتائج!</template>
+													</multiselect>
+												</div>
+											</div>
+										</div>
+									</b-tab>
+									<b-tab title-item-class="px-3" title="الموقع">
+										<div class="row justify-content-center">
+											<div class="col-8">
+												<section-title>المنطقة</section-title>
+												<div>
+													<multiselect dir="rtl" :options="cities" v-model="city" track-by="title" label="title"
+													             :allow-empty="false"
+													             select-label="" selected-label="" deselect-label="" placeholder="">
+														<template slot="singleLabel" slot-scope="props">
+															<div class="text-right">{{ props.option.title }}</div>
+														</template>
+														<template slot="noResult">لا يوجد نتائج!</template>
+													</multiselect>
+												</div>
 
-		<section-title class="mt-3">البيانات الشخصية</section-title>
-		<b-list-group class="p-0">
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">الاسم كاملاً</span>
-				<span class="option-value w-100">
-					<input type="text" class="border-0 w-100" v-model="fullname">
-				</span>
-			</b-list-group-item>
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">الموقع</span>
-				<span class="option-value w-100">
-					<input type="text" class="border-0 w-100" v-model="website">
-				</span>
-			</b-list-group-item>
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">الهاتف</span>
-				<span class="option-value w-100">
-					<input type="text" class="border-0 w-100" v-model="phone">
-				</span>
-			</b-list-group-item>
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">الإيميل</span>
-				<span class="option-value w-100">
-					<input type="text" class="border-0 w-100" v-model="email">
-				</span>
-			</b-list-group-item>
-		</b-list-group>
+												<div class="mt-3">
+													<multiselect dir="rtl" :options="cities" v-model="city" track-by="title" label="title"
+													             :allow-empty="false"
+													             select-label="" selected-label="" deselect-label="" placeholder="">
+														<template slot="singleLabel" slot-scope="props">
+															<div class="text-right">{{ props.option.title }}</div>
+														</template>
+														<template slot="noResult">لا يوجد نتائج!</template>
+													</multiselect>
+												</div>
+											</div>
+										</div>
+									</b-tab>
+									<b-tab title="معلومات الجهة">
+										<b-media class="pt-3 pb-3" vertical-align="center" no-body>
+											<b-media-aside vertical-align="center">
+												<b-img class="rounded-circle avatar" :src="avatar" :alt="fullname"></b-img>
+											</b-media-aside>
+											<b-media-body class="align-self-center ml-4">
+												<div class="option-title mb-2">
+													اختيار الصورة الشخصية
+												</div>
+												<div class="select-image">
+													<b-button rounded variant="outline-secondary">اختيار</b-button>
+												</div>
+											</b-media-body>
+										</b-media>
 
-		<section-title class="mt-3">الموقع الجغرافي</section-title>
-		<b-list-group class="p-0">
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">المدينة</span>
-				<span class="option-value w-100">
-					<multiselect dir="rtl" class="w-50" :options="cities" v-model="city" track-by="title" label="title" :allow-empty="false"
-					             select-label="" selected-label="" deselect-label="" placeholder="">
-						<template slot="singleLabel" slot-scope="props">
-							<div class="text-right">{{ props.option.title }}</div>
-						</template>
-						<template slot="noResult">لا يوجد نتائج!</template>
-					</multiselect>
-				</span>
-			</b-list-group-item>
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">النطاق</span>
-				<span class="option-value w-50 py-1">
-					<vue-slider :max="50" :min="5" :interval="5" v-model="range" direction="rtl"
-					            :process-style="{ backgroundColor: '#6bda75' }" :tooltip-style="{ backgroundColor: '#6bda75' }"/>
-				</span>
-				<span class="option-value w-50 mx-3 text-muted">
-					{{ range }} كم
-				</span>
-			</b-list-group-item>
-		</b-list-group>
+										<div class="pt-2">
+											<lebel>
+												<section-title>اسم الجهة</section-title>
+												<Input placeholder="مثال: الهيئة العامة للترفية"/>
+											</lebel>
+										</div>
 
-		<section-title class="mt-3">بيانات الحساب</section-title>
-		<b-list-group class="p-0">
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">اسم المستخدم</span>
-				<span class="option-value w-100">
-					<input type="text" class="border-0 w-100" v-model="username">
-				</span>
-			</b-list-group-item>
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">كلمة السر</span>
-				<span class="option-value w-100">
-					<input type="password" class="border-0 w-100" v-model="password">
-				</span>
-			</b-list-group-item>
-		</b-list-group>
+										<div class="pt-2">
+											<lebel>
+												<section-title>ايميل الجهة</section-title>
+												<Input placeholder="info@gea.gov.sa"/>
+											</lebel>
+										</div>
 
-		<section-title class="mt-3">الإشعارات</section-title>
-		<b-list-group class="p-0">
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-title fixed-width">الإشعارات</span>
-				<span class="option-value w-100">
-					<toggle-button class="mb-0" v-model="notifications"/>
-				</span>
-			</b-list-group-item>
-		</b-list-group>
+										<div class="pt-2">
+											<lebel>
+												<section-title>رقم الهاتف</section-title>
+												<Input placeholder="مثال:05213423444 "/>
+											</lebel>
+										</div>
 
-		<section-title class="mt-3">وصف قصير</section-title>
-		<b-list-group class="p-0">
-			<b-list-group-item class="position-relative d-flex">
-				<span class="option-value w-100">
-					<textarea rows="4" class="border-0 w-100" v-model="bio"></textarea>
-				</span>
-			</b-list-group-item>
-		</b-list-group>
+										<div class="pt-2">
+											<lebel>
+												<section-title>موقع الويب</section-title>
+												<Input placeholder="gea.gov.sa"/>
+											</lebel>
+										</div>
 
-		<div class="my-4">
-			<b-button class="pr-3 pl-3" rounded variant="success">حفظ</b-button>
-			<b-button class="pr-3 pl-3 text-muted" rounded variant="link">إلغاء</b-button>
+										<div class="pt-2">
+											<lebel>
+												<section-title>وصف قصير</section-title>
+												<Textarea classes="p-2" placeholder="صف الجهة بما لا يتجاوز 30 كلمة"></Textarea>
+											</lebel>
+										</div>
+									</b-tab>
+								</b-tabs>
+								<div class="w-25 mt-3 mx-auto">
+									<b-button @click="tabIndex++" rounded block variant="success"
+									          v-text="tabIndex === 2 ? 'إنشاء' : 'التالي'"></b-button>
+									<b-button @click="tabIndex--" class="text-muted" block rounded variant="link"
+									          v-text="tabIndex === 0 ? 'إلغاء' : 'السابق'"></b-button>
+								</div>
+							</div>
+						</div>
+					</b-card>
+				</div>
+			</div>
 		</div>
-
 	</div>
 </template>
 
 <script>
     import SectionTitle from "../components/SectionTitle";
+    import Input from "../components/Input";
+    import Textarea from "../components/Textarea";
 
     export default {
-        components: {SectionTitle},
-        props: {},
-        data: function () {
-            return {
-                avatar: 'https://picsum.photos/100/100',
-                fullname: 'حسام عبد',
-                website: 'linkati.me/hussam3bd',
-                phone: '905535850390',
-                email: 'hussam@linkati.me',
-                city: 'الرياض',
-                range: 10,
-                username: 'hussam3bd',
-                password: '12345',
-                notifications: true,
-                bio: 'لا يوجد شرح قصير',
-                cities: [
+        components: {Textarea, Input, SectionTitle},
+        layout: 'blank',
+        props: {
+            cities: {
+                default: [
                     {title: 'الرياض'},
                     {title: 'جدة'},
-                    {title: 'المدينة'},
-                    {title: 'مكة'},
+                    {title: 'دمشق'},
                 ]
+            },
+            city: {
+                default: {title: 'جدة'}
+            },
+            avatar: {
+                default: 'https://picsum.photos/100/100'
+            },
+            fullname: {
+                default: 'name'
             }
         },
-        mounted() {
-
-        },
-        methods: {
-            alert(event) {
-                console.log("event");
-                console.log(event);
+        data: () => {
+            return {
+                tabIndex: 0
             }
         }
     }
 </script>
 
 <style lang="scss">
-	.option-title {
-		font-size: 18px;
-		color: #030f09;
-	}
-
-	.fixed-width {
-		width: 150px;
-	}
-
-	.option-value {
-		input, textarea {
-			-webkit-appearance: none;
-			outline: none;
-			color: #767676;
-			font-size: 18px;
+	ul.steps {
+		border: 0;
+		.px-3 {
+			padding: 0 20px !important;
 		}
-	}
-
-	.avatar-card {
-		img.avatar {
-			width: 100px;
-			height: 100px;
+		li {
+			a {
+				border-width: 0 0 5px 0 !important;
+				border-style: solid;
+				border-color: #7a7b80 !important;
+			}
+			.active {
+				border-color: #30be76 !important;
+			}
 		}
 	}
 </style>

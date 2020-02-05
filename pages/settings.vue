@@ -19,7 +19,6 @@
 						<b-button rounded variant="outline-secondary">اختيار</b-button>
 					</div>
 				</b-media-body>
-
 			</b-media>
 		</b-card>
 

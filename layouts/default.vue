@@ -33,7 +33,9 @@
 							<SectionTitle classes="px-3">
 								<slot>جهاتي</slot>
 								<template v-slot:link="">
-									<a href=""> أضف جهة جديدة<i class="far fa-plus"></i></a>
+									<nuxt-link to="/new-community">
+										أضف جهة جديدة<i class="far fa-plus"></i>
+									</nuxt-link>
 								</template>
 							</SectionTitle>
 							<NavbarLinks>
