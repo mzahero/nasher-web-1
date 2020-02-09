@@ -43,6 +43,7 @@
             return {
                 mapTypeId: "terrain",
                 options: {
+                    clickableIcons: false,
                     zoomControl: false,
                     mapTypeControl: false,
                     scaleControl: false,

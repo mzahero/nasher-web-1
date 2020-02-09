@@ -11,7 +11,9 @@
 		<b-card v-for="community in communities" class="mb-3 community">
 			<b-media>
 				<template v-slot:aside="">
-					<b-img class="rounded avatar" :src="community.avatar" :alt="community.name"></b-img>
+					<nuxt-link to="/community">
+						<b-img class="rounded avatar" :src="community.avatar" :alt="community.name"></b-img>
+					</nuxt-link>
 				</template>
 
 				<div class="follow-btn position-absolute">
@@ -19,7 +21,9 @@
 					<b-button v-else class="" rounded variant="success">متابع <i class="fas fa-check"></i></b-button>
 				</div>
 
-				<div class="name" v-text="community.name"></div>
+				<nuxt-link to="/community">
+					<div class="name" v-text="community.name"></div>
+				</nuxt-link>
 				<div class="location pb-3">
 					<span v-if="community.location" v-text="community.location"></span>
 				</div>
