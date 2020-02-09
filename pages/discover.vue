@@ -1,114 +1,45 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-	<div id="main-app">
-		<div id="wrapper" class="fixed-top">
-			<div class="container-fluid" id="header-container">
-				<div class="container">
-					<Header/>
-				</div>
-			</div>
-			<div class="container" id="sidebars-container">
-				<div class="row">
-					<div class="col-3 d-none d-sm-block" id="nav-sidebar">
-						<Sidebar>
-							<nuxt-link class="d-flex align-items-center px-3 mb-3 profile-link" to="profile">
-								<div class="icon-wrap align-content-center align-items-center d-flex">
-									<img class="rounded-circle" src="https://picsum.photos/42/42" alt="user image">
-								</div>
-								<div class="px-2">
-									<span class="title">
-										حسام عبد
-									</span>
-								</div>
+<template>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12">
+				<gmap-map :center="center" :map-type-id="mapTypeId" :zoom="zoom" :options="options">
+					<gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
+					                  @closeclick="infoWinOpen=false">
+						<div class="info-box">
+							<nuxt-link :to="infoWindowLink" v-if="infoWindowType === 'community'">
+								<b-card body-class="p-1" class="text-center community">
+									<b-img :src="infoWindowImage" :alt="infoWindowTitle"></b-img>
+									<h5 class="text-dark mt-2" v-text="infoWindowTitle"></h5>
+								</b-card>
 							</nuxt-link>
-							<NavbarLinks>
-								<NavbarLink link="/" icon="far fa-home">حائط النشر</NavbarLink>
-								<NavbarLink link="/events" icon="far fa-calendar-alt">الفعاليات</NavbarLink>
-								<NavbarLink link="/communities" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
-								<NavbarLink link="/discover" icon="far fa-map">استكشف</NavbarLink>
-							</NavbarLinks>
-							<SectionTitle classes="px-3">الناشر</SectionTitle>
-							<NavbarLinks>
-								<NavbarLink link="/settings" icon="far fa-cog">إعدادات الحساب</NavbarLink>
-							</NavbarLinks>
-							<SectionTitle classes="px-3">
-								<slot>جهاتي</slot>
-								<template v-slot:link="">
-									<nuxt-link to="/new-community">
-										أضف جهة جديدة<i class="far fa-plus"></i>
-									</nuxt-link>
-								</template>
-							</SectionTitle>
-							<NavbarLinks>
-								<NavbarLink link="/community" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
-							</NavbarLinks>
-						</Sidebar>
-					</div>
-					<div class="col-6">
-					</div>
-					<div class="col-3 d-none d-sm-block" id="widgets-sidebar">
-						<Sidebar>
-							<WeatherWidget bg="https://picsum.photos/284/190">
-								<template slot="location">المملكة العربية السعودية - الرياض</template>
-								<template slot="temperature">32</template>
-								<template slot="status">غائم جزئياً</template>
-							</WeatherWidget>
-							<SectionTitle>
-								<slot>موقعك الجغرافي الآن</slot>
-								<template v-slot:link="">
-									<a href="">تعديل</a>
-								</template>
-							</SectionTitle>
-							<gmap-map :center="center" :map-type-id="mapTypeId" :zoom="zoom" :options="options">
-								<gmap-marker :position="center"/>
-							</gmap-map>
-							<ul class="nav p-0 row">
-								<li class="nav-item">
-									<a class="nav-link" href="">عن ناشر</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="">عن ناشر</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="">عن ناشر</a>
-								</li>
-							</ul>
-							<div class="copyrights">
-								© 2020 كافة الحقوق محفوظة لناشر
-							</div>
-						</Sidebar>
-					</div>
-				</div>
+							<nuxt-link :to="infoWindowLink" v-else >
+							<b-card body-class="p-2 position-relative" class="event" :img-src="infoWindowImage"
+							        :img-alt="infoWindowTitle" img-top>
+
+									<h6 class="text-dark" v-text="infoWindowTitle"></h6>
+								<span class="text-dark" v-text="infoWindowTime"></span>
+								<span class="date-box p-2 text-center text-muted rounded bg-white position-absolute"
+								      v-html="infoWindowDate"></span>
+							</b-card>
+							</nuxt-link>
+						</div>
+					</gmap-info-window>
+					<gmap-marker :key="i" v-for="(m,i) in markers"
+					             :icon="m.type === 'community' ? '/community.png' : '/event.png'" :position="m.position"
+					             :clickable="true" @click="toggleInfoWindow(m,i)"></gmap-marker>
+				</gmap-map>
 			</div>
 		</div>
-		<section id="view">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-xl-6 col-sm-6" id="page-content">
-						<nuxt/>
-					</div>
-				</div>
-			</div>
-		</section>
 	</div>
 </template>
 
 <script>
-    import Header from '../sections/Header'
-    import Sidebar from '../sections/Sidebar'
-    import NavbarLinks from "../components/NavbarLinks";
-    import NavbarLink from "../components/NavbarLink";
-    import SectionTitle from "../components/SectionTitle";
-    import WeatherWidget from "../components/WeatherWidget";
+    import CommunitySmallCard from "../components/CommunitySmallCard";
 
     export default {
-        components: {
-            WeatherWidget,
-            SectionTitle,
-            NavbarLink,
-            NavbarLinks,
-            Header, Sidebar
-        },
-		    data: () => {
+        components: {CommunitySmallCard},
+        layout: 'blankWithNavbar',
+        data() {
             return {
                 mapTypeId: "terrain",
                 options: {
@@ -119,7 +50,7 @@
                     rotateControl: false,
                     fullscreenControl: false,
                     disableDefaultUi: false,
-                    styles : [
+                    styles: [
                         {
                             "elementType": "geometry",
                             "stylers": [
@@ -253,88 +184,122 @@
                         },
                     ]
                 },
-                center: {lat: 24.7255553,lng: 46.5423382},
-                zoom: 10,
+                center: {lat: 24.7255553, lng: 46.7023382},
+                zoom: 11,
+                infoWindowPos: null,
+                infoWinOpen: false,
+                currentMidx: null,
+
+                infoOptions: {
+                    pixelOffset: {
+                        width: 0,
+                        height: -60
+                    }
+                },
+                markers: [
+                    {
+                        position: {
+                            lat: 24.7255553,
+                            lng: 46.7023382
+                        },
+                        type: 'community',
+                        image: 'https://picsum.photos/100/100',
+                        title: 'المتحف الوطي  السعودي',
+                        link: '/community'
+                    },
+                    {
+                        position: {
+                            lat: 24.7555553,
+                            lng: 46.7523382
+                        },
+                        type: 'event',
+                        image: 'https://picsum.photos/255/114',
+                        title: 'المتحف الوطي  السعودي',
+                        link: '/event',
+                        date: '<b>23</b><br>أكتوبر',
+                        time: '08:30PM'
+                    },
+                    {
+                        position: {
+                            lat: 24.7955553,
+                            lng: 46.7323382
+                        },
+                        type: 'event',
+                        image: 'https://picsum.photos/255/115',
+                        title: 'عيد ميلاد زاهر',
+                        link: '/event',
+                        date: '<b>11</b><br>فبراير',
+                        time: '09:30PM'
+                    }],
+                infoWindowImage: 'https://picsum.photos/100/100',
+                infoWindowTitle: 'المتحف الوطي  السعودي',
+                infoWindowType: 'community',
+                infoWindowLink: '/community',
+                infoWindowDate: '<b>23</b><br>أوكتوبر',
+                infoWindowTime: '08:30PM'
+            };
+        },
+        props: {},
+        methods: {
+            toggleInfoWindow: function (marker, idx) {
+                this.infoWindowPos = marker.position;
+                this.infoWindowType = marker.type;
+                this.infoWindowImage = marker.image;
+                this.infoWindowTitle = marker.title;
+                this.infoWindowLink = marker.link;
+                this.infoWindowDate = marker.date;
+                this.infoWindowTime = marker.time;
+
+                //check if its the same marker that was selected if yes toggle
+                if (this.currentMidx == idx) {
+                    this.infoWinOpen = !this.infoWinOpen;
+                }
+                //if different marker set infowindow to open and reset current marker index
+                else {
+                    this.infoWinOpen = true;
+                    this.currentMidx = idx;
+
+                }
             }
-		    }
+        }
     }
 </script>
 
 <style lang="scss">
-	@import "../assets/scss/app";
-
-	#main-app {
-		background-color: $app-background-color;
-		overflow: hidden;
-		#wrapper {
-			pointer-events: none;
-			#header-container {
-				pointer-events: auto;
-				background-color: $header-background-color;
-				border-bottom: 1px $header-border-color solid;
-			}
-			#sidebars-container {
-				margin-top: 30px;
-				#nav-sidebar {
-					pointer-events: auto;
-					border-left: 1px $page-content-border-color solid;
-					.profile-link{
-						img{
-							width: 42px;
-							height: 42px;
-						}
-						.title{
-							font-size: 20px;
-							font-weight: 500;
-							color: #3e3f42;
-						}
-					}
-				}
-				#widgets-sidebar {
-					pointer-events: auto;
-					border-right: 1px $page-content-border-color solid;
-					.vue-map-container {
-						min-height: 200px;
-						border: none;
-					}
-				}
-			}
-		}
-
-		#view {
-			min-height: 800px;
-			margin-top: 100px;
-			#page-content {
-
-			}
-		}
+	.vue-map-container {
+		min-height: 700px;
+		border: none;
 	}
 
-	.nav {
-		.nav-item {
-			position: relative;
-			.nav-link {
-				font-size: 14px;
-				font-weight: 500;
-				color: #767676;
+	.info-box {
+		font-family: DINNextLTW23, serif !important;
+		div.community {
+			max-width: 200px;
+			img {
+				max-width: 100px;
 			}
-			&:after {
-				content: '•';
-				position: absolute;
-				top: 50%;
+		}
+		div.event {
+			.date-box {
+				top: 0;
+				left: 15px;
 				transform: translateY(-50%);
-				left: -5px;
-				color: #767676;
-			}
-			&:last-child:after {
-				display: none;
+				line-height: 1.3;
+				border: 1px solid #d8dce6;
+				font-size: 17px;
+				b {
+					font-size: 24px;
+					font-weight: 600;
+				}
 			}
 		}
 	}
 
-	.copyrights {
-		color: #767676;
-		font-size: 13px;
+	.gm-style-iw-c {
+		padding: 0 !important;
+	}
+
+	.gm-style-iw-d {
+		overflow: hidden !important;
 	}
 </style>
-

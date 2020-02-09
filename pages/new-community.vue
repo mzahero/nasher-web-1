@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container pb-5">
 		<div class="row justify-content-center">
 			<div class="col-8">
 				<div class="text-center">
