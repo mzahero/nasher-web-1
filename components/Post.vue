@@ -28,7 +28,7 @@
 					<div class="post-actions d-flex mt-3">
 						<like-counter :likes-count="likesCount" :is-liked="isLiked" class="mr-3"/>
 						<comment-counter :comments-count="comments.length"/>
-						<share-button class="ml-auto"/>
+						<share-button :dropup="images.length > 1" class="ml-auto"/>
 					</div>
 				</b-media>
 			</b-card-body>

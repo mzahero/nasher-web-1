@@ -18,9 +18,6 @@ body {
 
 a {
   @extend .animate;
-  &:hover {
-    text-decoration: none;
-  }
 }
 
 img {
@@ -32,6 +29,10 @@ ul{
   li:after {
     display: none;
   }
+}
+
+.button-padding{
+  padding: 4px 30px 10px 30px;
 }
 
 .profile-image {

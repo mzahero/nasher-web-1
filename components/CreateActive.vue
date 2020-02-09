@@ -58,7 +58,25 @@
 			<hr class="m-0">
 			<div class="d-flex align-items-center pt-3">
 				<b-button class="rounded-0 text-muted border-left" variant="link"><i class="far fa-image"></i> اختيار الصورة</b-button>
-				<b-button class="rounded-0 text-muted" variant="link"><i class="far fa-video"></i> إضافة فيديو</b-button>
+				<b-button v-b-modal.video-modal class="rounded-0 text-muted" variant="link"><i class="far fa-video"></i> إضافة فيديو</b-button>
+
+				<b-modal id="video-modal" hide-header hide-footer>
+					<div class="padding">
+						<img src="/youtube.png" class="pt-2 pb-2 m-auto d-block" alt="youtube logo">
+						<p>
+							قم بلصق رابط الفيدي الذي تريد عرضة على موقعك.
+						</p>
+						<Input dir="ltr" placeholder="https://www.youtube.com/"/>
+						<div class="buttons pt-3 text-center">
+							<div>
+								<b-button class="rounded button-padding" variant="success">تضمين</b-button>
+							</div>
+							<div>
+								<b-button class="text-muted" variant="link">كيف اقوم بذلك؟</b-button>
+							</div>
+						</div>
+					</div>
+				</b-modal>
 
 				<div class="ml-auto">
 					<toggle-button class="mb-0 pr-2" v-model="notifications"/>
@@ -121,6 +139,15 @@
 		outline: none;
 		color: #767676;
 		font-size: 18px;
+	}
+
+	#video-modal{
+		.padding{
+			padding: 10px 40px;
+		}
+		img{
+			width: 115px;
+		}
 	}
 
 </style>
