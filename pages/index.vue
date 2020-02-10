@@ -148,7 +148,19 @@
                 items: 4,
                 dots: false,
                 rtl: true,
-                margin: 10
+                margin: 10,
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:1,
+                    },
+                    360:{
+                        items:2,
+                    },
+                    500:{
+                        items:3,
+                    },
+                }
             });
         }
     }

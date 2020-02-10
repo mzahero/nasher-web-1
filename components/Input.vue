@@ -3,6 +3,7 @@
 		<label class="mb-0">
 			<input :placeholder="placeholder" type="text">
 			<i class="icon" :class="icon" v-if="icon"></i>
+			<i class="icon left" :class="leftIcon"></i>
 		</label>
 	</div>
 </template>
@@ -11,6 +12,9 @@
     export default {
         props: {
             icon: {
+                default: ''
+            },
+            leftIcon: {
                 default: ''
             },
             placeholder: {
@@ -50,7 +54,12 @@
 				right: 15px;
 				transform: translateY(-50%);
 				color: $search-input-color;
+				&.left{
+					right: auto;
+					left: 15px;
+				}
 			}
+
 		}
 	}
 </style>

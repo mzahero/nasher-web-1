@@ -1,7 +1,7 @@
 <template>
-	<div class="container pb-5">
+	<div class="container-xl pb-5">
 		<div class="row justify-content-center">
-			<div class="col-8">
+			<div class="col-12 col-md-8">
 				<div class="text-center">
 					<h2>إنشاء جهة جديدة</h2>
 					<p class="text-muted pt-2 w-50 m-auto">قم بالتعريف عن جهتك لإستهداف العملاء المحليين, ومشاركتهم الفعاليات و

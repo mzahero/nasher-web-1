@@ -2,7 +2,7 @@
 	<div id="main-app">
 		<div id="wrapper" class="fixed-top">
 			<div class="container-fluid" id="header-container">
-				<div class="container">
+				<div class="container-xl">
 					<Header/>
 				</div>
 			</div>

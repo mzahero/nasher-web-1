@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container-xl">
 		<div class="row justify-content-center">
 			<div class="col-12">
 				<gmap-map :center="center" :map-type-id="mapTypeId" :zoom="zoom" :options="options">

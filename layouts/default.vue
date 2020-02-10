@@ -2,13 +2,14 @@
 	<div id="main-app">
 		<div id="wrapper" class="fixed-top">
 			<div class="container-fluid" id="header-container">
-				<div class="container">
+				<div class="container-xl">
 					<Header/>
 				</div>
 			</div>
-			<div class="container" id="sidebars-container">
+			<div class="container-xl" id="sidebars-container">
 				<div class="row">
-					<div class="col-3 d-none d-sm-block" id="nav-sidebar">
+					<div class="col-3 d-md-block fixed-md" id="nav-sidebar">
+						<i class="far fa-times fa-lg text-muted invisible hide-navbar position-absolute"></i>
 						<Sidebar>
 							<nuxt-link class="d-flex align-items-center px-3 mb-3 profile-link" to="profile">
 								<div class="icon-wrap align-content-center align-items-center d-flex">
@@ -41,11 +42,27 @@
 							<NavbarLinks>
 								<NavbarLink link="/community" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
 							</NavbarLinks>
+							<div class="d-md-none">
+								<ul class="nav p-0 row">
+									<li class="nav-item">
+										<a class="nav-link" href="">عن ناشر</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="">عن ناشر</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="">عن ناشر</a>
+									</li>
+								</ul>
+								<div class="copyrights">
+									© 2020 كافة الحقوق محفوظة لناشر
+								</div>
+							</div>
 						</Sidebar>
 					</div>
 					<div class="col-6">
 					</div>
-					<div class="col-3 d-none d-sm-block" id="widgets-sidebar">
+					<div class="col-3 d-none d-md-block" id="widgets-sidebar">
 						<Sidebar>
 							<WeatherWidget bg="https://picsum.photos/284/190">
 								<template slot="location">المملكة العربية السعودية - الرياض</template>
@@ -81,9 +98,9 @@
 			</div>
 		</div>
 		<section id="view">
-			<div class="container">
+			<div class="container-xl">
 				<div class="row justify-content-center">
-					<div class="col-xl-6 col-sm-6" id="page-content">
+					<div class="col-xl-6 col-md-6" id="page-content">
 						<nuxt/>
 					</div>
 				</div>

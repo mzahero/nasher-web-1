@@ -2,18 +2,26 @@
 	<div>
 		<b-card class="mb-3">
 			<SectionTitle class="mt-0">الفعاليات القادمة</SectionTitle>
-			<div class="owl-carousel text-center owl-four-items">
-				<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
-					اليوم
+			<div class="text-center row">
+				<div class="col-6 col-sm-3 p-2">
+					<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
+						اليوم
+					</div>
 				</div>
-				<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
-					غداً
+				<div class="col-6 col-sm-3 p-2">
+					<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
+						غداً
+					</div>
 				</div>
-				<div class="rounded text-white p-2 bg-primary">
-					هذا الأسبوع
+				<div class="col-6 col-sm-3 p-2">
+					<div class="rounded text-white p-2 bg-primary">
+						هذا الأسبوع
+					</div>
 				</div>
-				<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
-					اختر التاريخ
+				<div class="col-6 col-sm-3 p-2">
+					<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
+						اختر التاريخ
+					</div>
 				</div>
 			</div>
 		</b-card>
@@ -189,16 +197,7 @@
             events: 'events/get',
         }),
         mounted() {
-            $('.owl-one-item').owlCarousel({
-                items: 1,
-                margin: 10
-            });
-            $('.owl-four-items').owlCarousel({
-                items: 4,
-                dots: false,
-                rtl: true,
-                margin: 10
-            });
+
         }
     }
 </script>
