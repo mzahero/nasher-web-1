@@ -48,6 +48,8 @@
     import Interest from "../components/Interest";
 
     export default {
+        layout: 'app',
+
         components: {SectionTitle, Interest},
         props: {
             interests: {

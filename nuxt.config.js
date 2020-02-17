@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
     mode: 'spa',
     /*
@@ -66,16 +68,10 @@ export default {
     ** Nuxt.js modules
     */
     modules: [
-        // Doc: https://bootstrap-vue.js.org
+        '@nuxtjs/axios',
         'bootstrap-vue/nuxt',
-        // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/axios'
+        '@nuxtjs/auth'
     ],
-    /*
-    ** Axios module configuration
-    ** See https://axios.nuxtjs.org/options
-    */
-    axios: {},
     /*
     ** Build configuration
     */
@@ -84,6 +80,23 @@ export default {
         ** You can extend webpack config here
         */
         extend(config, ctx) {
+        }
+    },
+    auth: {
+        redirect: {
+            login: '/landing',
+            logout: '/landing'
+        },
+        strategies: {
+            local: {
+                endpoints: {
+                    login: { url: 'login', method: 'post', propertyName: 'data.token' },
+                    logout: { url: 'logout', method: 'post' },
+                    user: { url: 'user', method: 'get', propertyName: 'data' }
+                },
+                tokenRequired: true,
+                tokenType: 'Bearer'
+            }
         }
     }
 }

@@ -1,6 +1,9 @@
 .fixed-md {
   @extend .animate;
 }
+.hide-search-input{
+  display: none!important;
+}
 @include media-breakpoint-down(sm) {
   .fixed-md {
     background-color: #eff0f2;
@@ -22,6 +25,10 @@
     top: 15px;
     z-index: 10;
     visibility: visible!important;
+  }
+
+  .hide-search-input{
+    display: block!important;
   }
 }
 

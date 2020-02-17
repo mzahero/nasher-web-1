@@ -120,6 +120,8 @@
     import LazyLoadPost from "../components/LazyLoadPost";
 
     export default {
+        layout: 'app',
+
         loading: false,
         components: {
             Event,
@@ -159,6 +161,9 @@
                     },
                     500:{
                         items:3,
+                    },
+                    1200:{
+                        items:4,
                     },
                 }
             });

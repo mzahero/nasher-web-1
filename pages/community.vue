@@ -202,6 +202,8 @@
     import CreateActive from "../components/CreateActive";
 
     export default {
+        layout: 'app',
+
         components: {CreateActive, Event, SectionTitle},
         props: {
             cover: {

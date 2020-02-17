@@ -113,7 +113,7 @@
 		</b-list-group>
 
 		<div class="my-4">
-			<b-button class="pr-3 pl-3" rounded variant="success">حفظ</b-button>
+			<b-button class="btn-padding" rounded variant="success">حفظ</b-button>
 			<b-button class="pr-3 pl-3 text-muted" rounded variant="link">إلغاء</b-button>
 		</div>
 
@@ -124,6 +124,8 @@
     import SectionTitle from "../components/SectionTitle";
 
     export default {
+        layout: 'app',
+
         components: {SectionTitle},
         props: {},
         data: function () {
@@ -183,5 +185,9 @@
 			width: 100px;
 			height: 100px;
 		}
+	}
+
+	.btn-padding{
+		padding: 5px 20px;
 	}
 </style>

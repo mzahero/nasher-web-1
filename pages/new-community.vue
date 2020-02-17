@@ -145,6 +145,7 @@
 
     export default {
         components: {Textarea, Input, SectionTitle},
+
         layout: 'blank',
         props: {
             cities: {

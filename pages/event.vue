@@ -33,6 +33,8 @@
     import {mapGetters} from 'vuex'
 
     export default {
+        layout: 'app',
+
         components: {
             Event,
         },

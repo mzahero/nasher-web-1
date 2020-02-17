@@ -26,7 +26,7 @@
 						<img class="rounded-circle profile-image" src="https://picsum.photos/200/200" alt="user image">
 					</template>
 					<b-dropdown-item href="#">An item</b-dropdown-item>
-					<b-dropdown-item href="#">Another item</b-dropdown-item>
+					<b-dropdown-item @click="logout">تسجيل الخروج</b-dropdown-item>
 				</b-dropdown>
 			</div>
 		</div>
@@ -59,8 +59,16 @@
             $('a, .hide-navbar').click(function () {
                 $('#nav-sidebar').removeClass('right-0');
             });
-
-		    }
+		    },
+        methods: {
+            async logout () {
+                try {
+                    await this.$auth.logout()
+                } catch (e) {
+                    this.formError = e.message
+                }
+            }
+        }
     }
 </script>
 

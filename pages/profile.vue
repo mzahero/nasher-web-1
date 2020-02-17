@@ -46,11 +46,11 @@
 		<b-card class="mt-3">
 			<section-title>متابع لهذه الجهات</section-title>
 			<div class="row">
-				<div v-for="community in communities" class="col-md-3 mb-3 community">
+				<div v-for="community in communities" class="col-6 col-lg-4 mb-3 community">
 					<b-card no-body>
 						<b-card-body class="pt-2 pb-2 text-center">
 							<b-img class="avatar rounded" :src="community.avatar"></b-img>
-							<span class="title" v-text="community.title"></span>
+							<span class="title d-block" v-text="community.title"></span>
 							<b-button class="follow-btn mt-3" rounded variant="outline-secondary">تابع +</b-button>
 						</b-card-body>
 					</b-card>
@@ -64,6 +64,8 @@
     import SectionTitle from "../components/SectionTitle";
 
     export default {
+        layout: 'app',
+
         components: {SectionTitle},
         props: {
             cover: {
