@@ -39,7 +39,11 @@ export default {
     /*
     ** Customize the progress-bar color
     */
-    loading: {color: '#fff'},
+    loading: {
+        color: '#30be76',
+        height: '5px',
+        rtl: true
+    },
     /*
     ** Global CSS
     */
@@ -70,8 +74,14 @@ export default {
     modules: [
         '@nuxtjs/axios',
         'bootstrap-vue/nuxt',
-        '@nuxtjs/auth'
+        '@nuxtjs/auth',
+        '@nuxtjs/toast'
     ],
+    toast: {
+        position: 'bottom-left',
+        duration: 5000,
+        keepOnHover: true
+    },
     /*
     ** Build configuration
     */

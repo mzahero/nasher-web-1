@@ -1,8 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<div class="profile-page">
 		<b-card
-				:img-src="cover"
-				:img-alt="userName"
+				:img-src="user.cover"
+				:img-alt="user.name"
 				img-top
 				class="mb-3"
 				no-body
@@ -11,7 +11,7 @@
 				<b-media class="position-relative">
 					<template v-slot:aside>
 						<div class="aside">
-							<b-img class="rounded-circle border-white avatar" :src="avatar" :alt="userName"></b-img>
+							<b-img class="rounded-circle border-white avatar" :src="user.avatar" :alt="user.name"></b-img>
 						</div>
 					</template>
 					<b-dropdown class="options" no-caret variant="link">
@@ -21,23 +21,23 @@
 						<b-dropdown-item href="#">•••</b-dropdown-item>
 						<b-dropdown-item href="#">•••</b-dropdown-item>
 					</b-dropdown>
-					<div class="name">{{ userName }}</div>
+					<div class="name">{{ user.name }}</div>
 					<div class="description pb-3">
-						<span v-text="description"></span>
+						<span v-html="user.bio.raw"></span>
 					</div>
 				</b-media>
 				<div class="bio pb-3">
-					<p v-html="bio"></p>
+					<p v-html="user.bio.raw"></p>
 				</div>
 				<div class="links d-flex">
 					<div class="location d-flex align-items-center mr-3">
 						<i class="far fa-map-marker-alt mr-2"></i>
-						<span v-text="location"></span>
+						<span v-text="user.location"></span>
 					</div>
 					<div class="link d-flex align-items-center">
 						<i class="far fa-link mr-2"></i>
 						<span>
-							<a :href="link" target="_blank" v-text="link"></a>
+							<a :href="user.link" target="_blank" v-text="user.link"></a>
 						</span>
 					</div>
 				</div>
@@ -126,7 +126,12 @@
                 ]
             }
         },
-        mounted() {
+        computed: {
+            user: function(){
+                console.log("user");
+                console.log(this.$store.state.user.user);
+                return this.$store.state.user.user;
+            }
         }
     }
 </script>

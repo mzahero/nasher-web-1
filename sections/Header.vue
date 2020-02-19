@@ -5,10 +5,11 @@
 				<b-button variant="link" class="text-muted d-md-none pr-0 show-navbar">
 					<i class="far fa-align-justify fa-lg"></i>
 				</b-button>
-				<Logo id="logo" class="pl-3" />
+				<Logo id="logo" class="pl-3"/>
 			</div>
 			<div class="col-6 d-md-block search-input fixed-md">
-				<Input :placeholder="searchInputPlaceholder" class="bg-light" icon="far fa-search" left-icon="far fa-times hide-search-input" />
+				<Input :placeholder="searchInputPlaceholder" class="bg-light" icon="far fa-search"
+				       left-icon="far fa-times hide-search-input"/>
 			</div>
 			<div class="col-7 col-md-3 text-left">
 				<b-button variant="link" class="text-muted d-md-none show-search-input">
@@ -23,7 +24,7 @@
 				</b-dropdown>
 				<b-dropdown no-caret variant="link">
 					<template slot="button-content">
-						<img class="rounded-circle profile-image" src="https://picsum.photos/200/200" alt="user image">
+						<img class="rounded-circle profile-image" :src="user.avatar" :alt="user.name">
 					</template>
 					<b-dropdown-item href="#">An item</b-dropdown-item>
 					<b-dropdown-item @click="logout">تسجيل الخروج</b-dropdown-item>
@@ -41,14 +42,19 @@
         components: {
             Logo, Input
         },
-		    props: {
-            searchInputPlaceholder : {
-                default : 'ابحث في ناشر'
+        props: {
+            searchInputPlaceholder: {
+                default: 'ابحث في ناشر'
             }
-		    },
-		    mounted:() => {
+        },
+        computed: {
+            user: function () {
+                return this.$store.state.user.user
+            },
+        },
+        mounted: () => {
             $('.show-search-input').click(function () {
-		          $('.search-input').addClass('right-0');
+                $('.search-input').addClass('right-0');
             });
             $('.hide-search-input').click(function () {
                 $('.search-input').removeClass('right-0');
@@ -59,9 +65,9 @@
             $('a, .hide-navbar').click(function () {
                 $('#nav-sidebar').removeClass('right-0');
             });
-		    },
+        },
         methods: {
-            async logout () {
+            async logout() {
                 try {
                     await this.$auth.logout()
                 } catch (e) {
@@ -77,10 +83,10 @@
 
 	#header {
 		padding: 12px 0;
-		#notification-icon{
+		#notification-icon {
 			color: $header-notification-icon-color;
 		}
-		#logo{
+		#logo {
 			max-width: 200px;
 		}
 	}

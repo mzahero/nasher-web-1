@@ -41,13 +41,6 @@
                             password: this.formPassword
                         }
                     })
-                    // await this.$store.dispatch('login', {
-                    //     login: this.formLogin,
-                    //     password: this.formPassword
-                    // })
-                    // this.formLogin = ''
-                    // this.formPassword = ''
-                    // this.formError = null
                 } catch (e) {
                     this.formError = e.message
                 }
