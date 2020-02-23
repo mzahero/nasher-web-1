@@ -1,10 +1,10 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<div class="post">
-		<b-card class="mb-3" :class="{'overflow-hidden' : images.length > 1}" no-body :header="header ? header : ''">
+		<b-card class="mb-3" :class="{'overflow-hidden' : status.images.length > 1}" no-body :header="header ? header : ''">
 			<b-card-body>
 				<b-media>
 					<template v-slot:aside="">
-						<b-img class="rounded avatar" :src="avatar" :alt="name"></b-img>
+						<b-img class="rounded avatar" :src="status.locale.avatar" :alt="status.locale.name"></b-img>
 					</template>
 
 					<b-dropdown class="post-options" no-caret variant="link">
@@ -16,29 +16,30 @@
 						<b-dropdown-item href="#">•••</b-dropdown-item>
 					</b-dropdown>
 
-					<div class="post-owner" v-text="name"></div>
+					<div class="post-owner" v-text="status.locale.name"></div>
 					<div class="details pb-3">
-						<time class="timestamp" v-text="timestamp"></time>
-						<span v-if="postedBy" v-text="' - ' + postedBy"></span>
+						<time class="timestamp" v-text="status.createdAt.diffForHumans"></time>
+						<span v-if="status.locale.isAdmin" v-text="' - تم النشر بواسطة ' + status.user.name"></span>
 					</div>
-					<div class="post-content" v-html="content"></div>
-					<div :class="{'owl-carousel owl-one-item no-overflow' : images.length > 1}" class="mt-2" dir="ltr">
-						<b-img v-for="image in images" class="rounded" :src="image" :alt="title"></b-img>
+					<div class="post-content" v-html="status.content.formatted"></div>
+					<div :class="{'owl-carousel owl-one-item no-overflow' : status.images.length > 1}" class="mt-2" dir="ltr">
+						<b-img v-for="image in status.images" class="rounded" :src="image" :alt="status.locale.name"></b-img>
 					</div>
+					<div class="overflow-hidden iframe-container" v-if="status.embed" v-html="status.embed.code"></div>
 					<div class="post-actions d-flex mt-3">
 						<like-counter :likes-count="likesCount" :is-liked="isLiked" class="mr-3"/>
 						<comment-counter :comments-count="comments.length"/>
-						<share-button :dropup="images.length > 1" class="ml-auto"/>
+						<share-button :dropup="status.images.length > 1" class="ml-auto"/>
 					</div>
 				</b-media>
 			</b-card-body>
-			<template v-if="commentable && comments.length">
+			<template v-if="status.commentable && comments.length">
 				<hr class="mt-0">
 				<b-card-body class="py-0">
 					<comment v-for="comment in comments" :avatar="comment.avatar" :liked-by-official="comment.likedByOfficial" :name="comment.name" :content="comment.content" :is-liked="comment.isLiked" :timestamp="comment.timestamp"/>
 				</b-card-body>
 			</template>
-			<b-card-footer v-if="commentable">
+			<b-card-footer v-if="status.commentable">
 				<b-media vertical-align="center">
 					<template v-slot:aside>
 						<img src="https://picsum.photos/200/200" alt="user image" class="rounded-circle profile-image">
@@ -60,6 +61,9 @@
     export default {
         components: {Comment, Input, ShareButton, CommentCounter, LikeCounter},
         props: {
+            status : {
+							default: null,
+            },
             'commentable' : {
                 default: true
             },
@@ -126,6 +130,10 @@
 	@import "../assets/scss/helpers";
 
 	.post {
+		.iframe-container > iframe{
+			width: 100%;
+			border-radius: 0.25rem;
+		}
 		img.avatar {
 			width: 42px;
 			height: 42px;

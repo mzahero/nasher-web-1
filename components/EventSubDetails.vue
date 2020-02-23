@@ -7,7 +7,7 @@
 		</span>
 		<span class="detail d-flex align-items-center mr-2">
 			<i class="far fa-clock icon"></i>
-			<span class="content" v-text="time"></span>
+			<span class="content" v-text="$moment(time).format('hh:mmA')"></span>
 		</span>
 	</div>
 </template>
@@ -15,13 +15,18 @@
 <script>
     export default {
         props: {
-            location: {
-                default: 'جدة، السعودية'
+            address: {
+                default: null
             },
             time: {
                 default: '12:30PM'
             }
-        }
+        },
+		    computed: {
+            location: function () {
+		            return this.address.region.name + ', ' + this.address.city.name
+            }
+		    }
     }
 </script>
 

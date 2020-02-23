@@ -62,12 +62,18 @@ export default {
         '@/plugins/vue-slider-component',
         '@/plugins/vue-datetime',
         '@/plugins/vue-multiselect',
-        '@/plugins/vue-upload-component'
+        '@/plugins/vue-upload-component',
+        { src: '~/plugins/infiniteloading', ssr: false },
     ],
     /*
     ** Nuxt.js dev-modules
     */
-    buildModules: [],
+    buildModules: [
+        '@nuxtjs/moment'
+    ],
+    moment: {
+        locales : ['ar']
+    },
     /*
     ** Nuxt.js modules
     */
@@ -78,7 +84,7 @@ export default {
         '@nuxtjs/toast'
     ],
     toast: {
-        position: 'bottom-left',
+        position: 'top-right',
         duration: 5000,
         keepOnHover: true
     },

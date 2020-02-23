@@ -86,6 +86,7 @@
     import SectionTitle from "../components/SectionTitle";
 
     export default {
+        middleware: 'auth',
         components: {
             SectionTitle,
             NavbarLink,

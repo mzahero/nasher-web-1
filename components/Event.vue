@@ -1,17 +1,19 @@
 <template>
-	<div class="event">
+	<div v-if="event" class="event">
 		<b-card
 				:img-src="image"
-				:img-alt="title"
+				:img-alt="event.title"
 				img-top
 				class="mb-3"
 				no-body
 		>
-			<event-sub-details :location="location" :time="time" v-if="image" />
+			<event-sub-details :address="event.address" :time="event.happeningAt.timestamp" v-if="image"/>
 			<b-card-body>
 				<b-media>
 					<template v-slot:aside>
-						<b-img class="rounded avatar" :src="avatar" :alt="name"></b-img>
+						<nuxt-link :to="'/locales/' + event.locale.username">
+							<b-img class="rounded avatar" :src="event.locale.avatar" :alt="event.locale.name"></b-img>
+						</nuxt-link>
 					</template>
 
 					<b-dropdown class="post-options" no-caret variant="link">
@@ -22,35 +24,41 @@
 						<b-dropdown-item href="#">•••</b-dropdown-item>
 					</b-dropdown>
 
-					<div class="post-owner" v-text="name"></div>
+
+					<div class="post-owner">
+						<nuxt-link class="text-dark" :to="'/locales/' + event.locale.username" v-text="event.locale.name">
+						</nuxt-link>
+					</div>
+
 					<div class="details pb-3">
-						<time class="timestamp" v-text="timestamp"></time>
-						<span v-if="postedBy" v-text="' - ' + postedBy"></span>
+						<time class="timestamp" v-text="event.createdAt.diffForHumans"></time>
+						<span v-if="event.locale.isAdmin" v-text="' - تم النشر بواسطة ' + event.user.name"></span>
 					</div>
 				</b-media>
 				<b-media class="event-details">
 					<template v-slot:aside>
 						<div class="date-box rounded text-primary text-center">
-							<div class="month" v-text="month"></div>
-							<div class="day" v-text="day">21</div>
+							<div class="month" v-text="$moment(event.happeningAt.timestamp).locale('ar').format('MMMM')"></div>
+							<div class="day" v-text="$moment(event.happeningAt.timestamp).format('DD')"></div>
 						</div>
 					</template>
-					<div class="post-content" v-html="content"></div>
+					<div class="post-content" v-html="event.content.formatted"></div>
 				</b-media>
-
 				<div class="post-actions d-flex mt-3">
-					<attendances :attendances="attendances" :attendances-count="attendancesCount"/>
-					<share-button class="ml-auto" />
+					<attendances :event-id="event.id" :attendances="event.attendances.attendances"
+					             :attendances-count="event.attendances.count"/>
+					<share-button class="ml-auto"/>
 				</div>
 			</b-card-body>
-			<event-sub-details :location="location" :time="time" v-if="!image" />
+			<event-sub-details :address="event.address" :time="event.happeningAt.timestamp" v-if="!image"/>
 			<template v-if="comments.length">
 				<hr class="mt-0">
 				<b-card-body class="py-0">
-					<comment v-for="comment in comments" :avatar="comment.avatar" :liked-by-official="comment.likedByOfficial" :name="comment.name" :content="comment.content"/>
+					<comment v-for="comment in comments" :avatar="comment.avatar" :liked-by-official="comment.likedByOfficial"
+					         :name="comment.name" :content="comment.content"/>
 				</b-card-body>
 			</template>
-			<b-card-footer v-if="commentable">
+			<b-card-footer v-if="event.commentable">
 				<b-media vertical-align="center">
 					<template v-slot:aside>
 						<img src="https://picsum.photos/200/200" alt="user image" class="rounded-circle profile-image">
@@ -71,7 +79,16 @@
 
     export default {
         components: {EventSubDetails, Input, ShareButton, Attendances, Comment},
+        computed: {
+            image: function () {
+                //return (this.event.images.length) ? this.event.images[0] : ''
+                return ''
+            }
+        },
         props: {
+            event: {
+                default: null
+            },
             'commentable': {
                 default: true
             },
@@ -90,20 +107,17 @@
             'month': {
                 default: 'اكتوبر'
             },
-            'day' : {
+            'day': {
                 default: '21'
             },
             'location': {
                 default: 'الرياض, المملكة العربية السعودية'
             },
-            'time' : {
+            'time': {
                 default: '12:00PM'
             },
             'content': {
                 default: '<h3>عنوان المنشور</h3><p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق</p>'
-            },
-            'image': {
-                default: ''
             },
             'comments': {
                 default: [
@@ -124,22 +138,22 @@
             'title': {
                 default: 'Post Title'
             },
-            'attendancesCount':{
+            'attendancesCount': {
                 default: 2
             },
-            'attendances' : {
+            'attendances': {
                 default: [
                     {
-                        img : 'https://picsum.photos/38/38',
-                        name : 'Hussam'
+                        img: 'https://picsum.photos/38/38',
+                        name: 'Hussam'
                     },
                     {
-                        img : 'https://picsum.photos/38/38',
-                        name : 'Hussam'
+                        img: 'https://picsum.photos/38/38',
+                        name: 'Hussam'
                     },
                     {
-                        img : 'https://picsum.photos/38/38',
-                        name : 'Hussam'
+                        img: 'https://picsum.photos/38/38',
+                        name: 'Hussam'
                     }
                 ]
             }

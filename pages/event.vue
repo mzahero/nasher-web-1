@@ -27,9 +27,9 @@
 <script>
     import Interest from "../components/Interest";
     import SectionTitle from "../components/SectionTitle";
-    import Post from "../components/Post";
+    import Post from "../components/Status";
     import Event from "../components/Event";
-    import LazyLoadPost from "../components/LazyLoadPost";
+    import LazyLoadLocale from "../components/LazyLoadLocale";
     import {mapGetters} from 'vuex'
 
     export default {

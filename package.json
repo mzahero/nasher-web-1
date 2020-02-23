@@ -29,6 +29,7 @@
     "owl.carousel": "^2.3.4",
     "sass-loader": "^8.0.2",
     "vue-datetime": "^1.0.0-beta.11",
+    "vue-infinite-loading": "^2.4.4",
     "vue-js-toggle-button": "^1.3.3",
     "vue-multiselect": "^2.1.6",
     "vue-rokka-uploader": "rokka-io/vue-rokka-uploader",
@@ -38,5 +39,7 @@
     "vuex": "^3.1.2",
     "weekstart": "^1.0.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@nuxtjs/moment": "^1.6.0"
+  }
 }

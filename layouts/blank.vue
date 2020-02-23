@@ -16,6 +16,7 @@
     import Header from '../sections/Header'
 
     export default {
+        middleware: 'auth',
         components: {
             Header
         }

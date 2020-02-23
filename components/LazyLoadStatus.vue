@@ -10,7 +10,7 @@
 					<div class="animation" style="width: 100px; height: 20px"></div>
 				</div>
 				<div class="details mt-1">
-					<div class="animation" style="width: 200px; height: 20px"></div>
+					<div class="animation" style="max-width: 200px; height: 20px"></div>
 				</div>
 				<div class="post-content mt-4">
 					<div class="animation mb-1" style="height: 20px"></div>

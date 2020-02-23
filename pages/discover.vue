@@ -34,11 +34,8 @@
 </template>
 
 <script>
-    import CommunitySmallCard from "../components/CommunitySmallCard";
-
     export default {
 
-        components: {CommunitySmallCard},
         layout: 'blankWithNavbar',
         data() {
             return {

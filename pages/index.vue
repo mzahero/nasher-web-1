@@ -8,7 +8,7 @@
 		</b-card>
 		<!--Start posts-->
 
-		<lazyLoadPost v-if="loading"/>
+		<LazyLoadStatus v-if="loading"/>
 
 		<post avatar="https://picsum.photos/100/100"
 		      name="محمد العربي"
@@ -115,20 +115,19 @@
 <script>
     import Interest from "../components/Interest";
     import SectionTitle from "../components/SectionTitle";
-    import Post from "../components/Post";
+    import Post from "../components/Status";
     import Event from "../components/Event";
-    import LazyLoadPost from "../components/LazyLoadPost";
+    import LazyLoadStatus from "../components/LazyLoadStatus";
 
     export default {
         layout: 'app',
-
         loading: false,
         components: {
             Event,
             Interest,
             SectionTitle,
             Post,
-            LazyLoadPost,
+            LazyLoadStatus,
         },
         props: {
             interests: {

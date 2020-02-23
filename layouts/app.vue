@@ -11,7 +11,7 @@
 					<div class="col-3 d-md-block fixed-md" id="nav-sidebar">
 						<i class="far fa-times fa-lg text-muted invisible hide-navbar position-absolute"></i>
 						<Sidebar>
-							<nuxt-link class="d-flex align-items-center px-3 mb-3 profile-link" to="profile">
+							<nuxt-link class="d-flex align-items-center px-3 mb-3 profile-link" :to="'/users/' + user.username">
 								<div class="icon-wrap align-content-center align-items-center d-flex">
 									<img class="rounded-circle" :src="user.avatar" :alt="user.name">
 								</div>
@@ -24,7 +24,7 @@
 							<NavbarLinks>
 								<NavbarLink link="/" icon="far fa-home">حائط النشر</NavbarLink>
 								<NavbarLink link="/events" icon="far fa-calendar-alt">الفعاليات</NavbarLink>
-								<NavbarLink link="/communities" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
+								<NavbarLink link="/locales" icon="far fa-map-marker-alt">الجهات المحلية</NavbarLink>
 								<NavbarLink link="/discover" icon="far fa-map">استكشف</NavbarLink>
 							</NavbarLinks>
 							<SectionTitle classes="px-3">الناشر</SectionTitle>
@@ -40,7 +40,7 @@
 								</template>
 							</SectionTitle>
 							<NavbarLinks>
-								<NavbarLink link="/community" image="https://picsum.photos/200/200">هيئة الترفيه</NavbarLink>
+								<NavbarLink v-for="locale in user.locales" :link="'/locales/' + locale.username" :image="locale.avatar">{{ locale.name }}</NavbarLink>
 							</NavbarLinks>
 							<div class="d-md-none">
 								<ul class="nav p-0 row">
@@ -118,6 +118,7 @@
     import WeatherWidget from "../components/WeatherWidget";
 
     export default {
+        middleware: 'auth',
         components: {
             WeatherWidget,
             SectionTitle,
