@@ -1,6 +1,8 @@
 <template>
-	<div class="event-sub-detail d-flex p-4 bg-light" v-if="dataEvent">
-		<b-button class="event-joining-button mr-auto" @click="toggleAttend()" :variant="dataEvent.isComing ? 'secondary' : 'success'">{{ dataEvent.isComing ? 'قررت الحضور' : 'انوي الحضور' }}</b-button>
+	<div class="event-sub-detail d-flex p-4 bg-light" v-if="eventData">
+		<b-button class="event-joining-button mr-auto" @click="toggleAttend($event)"
+		          :variant="isAttending ? 'secondary' : 'success'">{{ isAttending ? 'قررت الحضور' : 'انوي الحضور' }}
+		</b-button>
 		<span class="detail d-flex align-items-center mr-2">
 			<i class="far fa-map icon"></i>
 			<span class="content" v-text="location"></span>
@@ -15,28 +17,37 @@
 <script>
     export default {
         props: {
-            event : null
+            event: null
         },
-		    data: function(){
-				    return {
-                dataEvent : event
-				    }
-		    },
-		    computed: {
-            location: function () {
-		            return this.event.address.region.name + ', ' + this.event.address.city.name
+        data: function () {
+            return {
+                eventData: null
             }
-		    },
+        },
+        computed: {
+            location: function () {
+                return this.event.address.region.name + ', ' + this.event.address.city.name
+            },
+            isAttending: function () {
+                return !!this.eventData.attendances.isAttending;
+            }
+        },
+        created() {
+            this.eventData = this.event
+        },
         methods: {
-            toggleAttend(){
+            toggleAttend(event) {
+                event.toElement.disabled = true;
                 this.$axios.$post('events/' + this.event.id + '/attend')
                     .then(response => {
-                        this.dataEvent = response.data.event;
+                        this.eventData = response.data.event;
                     })
                     .catch(error => {
                         console.log("error");
                         console.log(error);
-                    });
+                    }).finally(() => {
+                    event.toElement.disabled = false
+                });
             }
         }
     }

@@ -27,13 +27,13 @@
 					</div>
 					<div class="overflow-hidden iframe-container" v-if="status.embed" v-html="status.embed.code"></div>
 					<div class="post-actions d-flex mt-3">
-						<like-counter :likes-count="likesCount" :is-liked="isLiked" class="mr-3"/>
+						<like-counter :status="status" class="mr-3"/>
 						<comment-counter :comments-count="comments.length"/>
 						<share-button :dropup="status.images.length > 1" class="ml-auto"/>
 					</div>
 				</b-media>
 			</b-card-body>
-			<template v-if="status.commentable && comments.length">
+			<template v-if="comments.length">
 				<hr class="mt-0">
 				<b-card-body class="py-0">
 					<comment v-for="comment in comments" :avatar="comment.avatar" :liked-by-official="comment.likedByOfficial" :name="comment.name" :content="comment.content" :is-liked="comment.isLiked" :timestamp="comment.timestamp"/>

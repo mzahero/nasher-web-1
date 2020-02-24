@@ -1,19 +1,42 @@
 <template>
-	<span class="like-counter d-flex align-items-center" :class="{'liked' : isLiked}">
-		<i class="icon fa-heart" :class="isLiked ? 'fa' : 'far'"></i>
-		<span class="content" v-text="likesCount"></span>
+	<span v-if="statusData" class="like-counter d-flex align-items-center" :class="{'liked' : statusData.likes.isLiked}">
+		<i class="icon fa-heart animate" @click="toggleLike($event)" :class="statusData.likes.isLiked ? 'fa' : 'far'"></i>
+		<span class="content" v-text="statusData.likes.count"></span>
 	</span>
 </template>
 
 <script>
     export default {
         props: {
-            likesCount: {
-                default : 20
-            },
-		        isLiked : {
-                default: true
-		        }
+            status: {
+                required: true
+            }
+        },
+        data() {
+            return {
+                statusData: null
+            }
+        },
+        created() {
+            this.statusData = this.status;
+        },
+        methods: {
+            toggleLike(event) {
+                alert('حسام لسا ما خلص الاندبوينت!!!!')
+		            return false;
+
+                event.toElement.disabled = true;
+                this.$axios.$post('events/' + this.event.id + '/attend')
+                    .then(response => {
+                        this.eventData = response.data.event;
+                    })
+                    .catch(error => {
+                        console.log("error");
+                        console.log(error);
+                    }).finally(() => {
+                    event.toElement.disabled = false
+                });
+            }
         }
     }
 </script>
@@ -23,14 +46,14 @@
 	@import "../assets/scss/helpers";
 
 	.like-counter {
-		.icon{
+		.icon {
 			font-size: 22px;
 			margin: 0 6px;
 		}
-		.content{
+		.content {
 			font-size: 16px;
 		}
-		&.liked{
+		&.liked {
 			color: #f84949;
 		}
 	}
