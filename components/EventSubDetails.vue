@@ -1,13 +1,13 @@
 <template>
-	<div class="event-sub-detail d-flex p-4 bg-light">
-		<b-button class="event-joining-button mr-auto" variant="success">انوي الحضور</b-button>
+	<div class="event-sub-detail d-flex p-4 bg-light" v-if="dataEvent">
+		<b-button class="event-joining-button mr-auto" @click="toggleAttend()" :variant="dataEvent.isComing ? 'secondary' : 'success'">{{ dataEvent.isComing ? 'قررت الحضور' : 'انوي الحضور' }}</b-button>
 		<span class="detail d-flex align-items-center mr-2">
 			<i class="far fa-map icon"></i>
 			<span class="content" v-text="location"></span>
 		</span>
 		<span class="detail d-flex align-items-center mr-2">
 			<i class="far fa-clock icon"></i>
-			<span class="content" v-text="$moment(time).format('hh:mmA')"></span>
+			<span class="content" v-text="$moment(event.happeningAt.timestamp).format('hh:mmA')"></span>
 		</span>
 	</div>
 </template>
@@ -15,18 +15,30 @@
 <script>
     export default {
         props: {
-            address: {
-                default: null
-            },
-            time: {
-                default: '12:30PM'
-            }
+            event : null
         },
+		    data: function(){
+				    return {
+                dataEvent : event
+				    }
+		    },
 		    computed: {
             location: function () {
-		            return this.address.region.name + ', ' + this.address.city.name
+		            return this.event.address.region.name + ', ' + this.event.address.city.name
             }
-		    }
+		    },
+        methods: {
+            toggleAttend(){
+                this.$axios.$post('events/' + this.event.id + '/attend')
+                    .then(response => {
+                        this.dataEvent = response.data.event;
+                    })
+                    .catch(error => {
+                        console.log("error");
+                        console.log(error);
+                    });
+            }
+        }
     }
 </script>
 

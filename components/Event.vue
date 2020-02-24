@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<div v-if="event" class="event">
 		<b-card
 				:img-src="image"
@@ -7,7 +7,7 @@
 				class="mb-3"
 				no-body
 		>
-			<event-sub-details :address="event.address" :time="event.happeningAt.timestamp" v-if="image"/>
+			<event-sub-details :event="event" v-if="image"/>
 			<b-card-body>
 				<b-media>
 					<template v-slot:aside>
@@ -50,7 +50,7 @@
 					<share-button class="ml-auto"/>
 				</div>
 			</b-card-body>
-			<event-sub-details :address="event.address" :time="event.happeningAt.timestamp" v-if="!image"/>
+			<event-sub-details :event="event" v-if="!image"/>
 			<template v-if="comments.length">
 				<hr class="mt-0">
 				<b-card-body class="py-0">
