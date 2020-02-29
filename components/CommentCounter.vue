@@ -1,5 +1,5 @@
 <template>
-	<span class="comment-counter d-flex align-items-center">
+	<span class="comment-counter">
 		<i class="far fa-comment icon"></i>
 		<span class="content" v-text="commentsCount">20</span>
 	</span>

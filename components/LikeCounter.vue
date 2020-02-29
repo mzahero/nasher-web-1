@@ -1,6 +1,6 @@
 <template>
-	<span v-if="statusData" class="like-counter d-flex align-items-center" :class="{'liked' : statusData.likes.isLiked}">
-		<i class="icon fa-heart animate" @click="toggleLike($event)" :class="statusData.likes.isLiked ? 'fa' : 'far'"></i>
+	<span v-if="statusData" @click="toggleLike($event)" class="like-counter d-flex align-items-center" :class="{'liked' : statusData.likes.isLiked}">
+		<i class="icon fa-heart animate" :class="statusData.likes.isLiked ? 'fa' : 'far'"></i>
 		<span class="content" v-text="statusData.likes.count"></span>
 	</span>
 </template>
@@ -22,19 +22,24 @@
         },
         methods: {
             toggleLike(event) {
-                alert('حسام لسا ما خلص الاندبوينت!!!!')
-		            return false;
-
-                event.toElement.disabled = true;
-                this.$axios.$post('events/' + this.event.id + '/attend')
+                this.statusData.likes = (this.statusData.likes.isLiked) ? {
+                    isLiked: false,
+                    count : (parseInt(this.statusData.likes.count) - 1)
+                } : {
+                    isLiked: true,
+                    count : (parseInt(this.statusData.likes.count) + 1)
+                };
+                this.$axios.$post('interactions/like',{
+                    target_type: 'status',
+                    target_id: this.statusData.id
+                })
                     .then(response => {
-                        this.eventData = response.data.event;
+                        this.statusData.likes = response.data;
                     })
                     .catch(error => {
                         console.log("error");
                         console.log(error);
                     }).finally(() => {
-                    event.toElement.disabled = false
                 });
             }
         }

@@ -4,7 +4,6 @@
 	<div v-else class="community-page">
 		<div v-if="!locale">
 			<lazyLoadProfile/>
-			<LazyLoadStatus/>
 		</div>
 		<div v-else>
 			<b-card
@@ -34,8 +33,9 @@
 									<b-dropdown-item href="#">•••</b-dropdown-item>
 								</b-dropdown>
 								<div class="follow-btn" v-if="!locale.isAdmin">
-									<b-button v-if="!followed" class="" rounded variant="outline-secondary">تابع +</b-button>
-									<b-button v-else class="" rounded variant="success">متابع <i class="fas fa-check"></i></b-button>
+									<b-button @click="toggleFollow($event)" rounded
+									          :variant="locale.followers.isFollowed ? 'success' : 'outline-secondary'"
+									          v-text="locale.followers.isFollowed ? 'متابع' : 'تابع +' "></b-button>
 								</div>
 							</div>
 						</div>
@@ -65,141 +65,24 @@
 					</div>
 				</b-card-body>
 			</b-card>
-
 			<create-active v-if="locale.isAdmin" class="bg-white rounded"/>
-
 			<template v-if="closestEvent">
-
 				<section-title>أقرب فعالية</section-title>
-
-				<event
-						:commentable="true"
-						avatar="https://picsum.photos/110/110"
-						name="الهيئة العامة للترفيه"
-						posted-by="تم النشر بواسطة أحمد باشا"
-						timestamp="منذ 45 دقيقة مضت"
-						month="اكتوبر"
-						day="23"
-						content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-						image="https://picsum.photos/700/350"
-						:comments="[]"
-						title="عنوان الحدث"
-						attendances-count="10"
-						:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-				/>
-
+				<event v-if="activity.type === 'event_created'" :event="activity.subject"/>
 				<hr>
-
 			</template>
-
-			<event
-					:commentable="true"
-					avatar="https://picsum.photos/110/110"
-					name="الهيئة العامة للترفيه"
-					posted-by="تم النشر بواسطة أحمد باشا"
-					timestamp="منذ 45 دقيقة مضت"
-					month="اكتوبر"
-					day="23"
-					content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-					image="https://picsum.photos/700/350"
-					:comments="[]"
-					title="عنوان الحدث"
-					attendances-count="10"
-					:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-			/>
-			<event
-					:commentable="true"
-					avatar="https://picsum.photos/110/110"
-					name="الهيئة العامة للترفيه"
-					posted-by="تم النشر بواسطة أحمد باشا"
-					timestamp="منذ 45 دقيقة مضت"
-					month="اكتوبر"
-					day="23"
-					content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-					image="https://picsum.photos/700/350"
-					:comments="[]"
-					title="عنوان الحدث"
-					attendances-count="10"
-					:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-			/>
-			<event
-					:commentable="true"
-					avatar="https://picsum.photos/110/110"
-					name="الهيئة العامة للترفيه"
-					posted-by="تم النشر بواسطة أحمد باشا"
-					timestamp="منذ 45 دقيقة مضت"
-					month="اكتوبر"
-					day="23"
-					content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-					image="https://picsum.photos/700/350"
-					:comments="[]"
-					title="عنوان الحدث"
-					attendances-count="10"
-					:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-			/>
-
-			<event
-					:commentable="true"
-					avatar="https://picsum.photos/110/110"
-					name="الهيئة العامة للترفيه"
-					posted-by="تم النشر بواسطة أحمد باشا"
-					timestamp="منذ 45 دقيقة مضت"
-					month="اكتوبر"
-					day="23"
-					content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-					image="https://picsum.photos/700/350"
-					:comments="[]"
-					title="عنوان الحدث"
-					attendances-count="10"
-					:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-			/>
-
-			<event
-					:commentable="true"
-					avatar="https://picsum.photos/110/110"
-					name="الهيئة العامة للترفيه"
-					posted-by="تم النشر بواسطة أحمد باشا"
-					timestamp="منذ 45 دقيقة مضت"
-					month="اكتوبر"
-					day="23"
-					content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-					image="https://picsum.photos/700/350"
-					:comments="[]"
-					title="عنوان الحدث"
-					attendances-count="10"
-					:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-			/>
 		</div>
+		<template v-if="activities" v-for="activity in activities">
+			<event v-if="activity.type === 'event_created'" :event="activity.subject"/>
+			<status v-if="activity.type === 'status_created'" :status="activity.subject"/>
+		</template>
+		<infinite-loading @infinite="infiniteScroll">
+			<div slot="spinner">
+				<LazyLoadStatus/>
+			</div>
+			<div slot="no-more"></div>
+			<div slot="no-results"></div>
+		</infinite-loading>
 	</div>
 </template>
 
@@ -209,13 +92,16 @@
     import CreateActive from "../../components/CreateActive";
     import LazyLoadProfile from "../../components/LazyLoadProfile";
     import LazyLoadStatus from "../../components/LazyLoadStatus";
+    import Status from "../../components/Status";
 
     export default {
         layout: 'app',
-        components: {CreateActive, Event, SectionTitle, LazyLoadProfile, LazyLoadStatus},
+        components: {Status, CreateActive, Event, SectionTitle, LazyLoadProfile, LazyLoadStatus},
         data: function () {
             return {
-                locale: null
+                locale: null,
+                activities: [],
+                page: 0
             }
         },
         created() {
@@ -228,7 +114,45 @@
                     console.log(error);
                 });
         },
-        computed: {},
+        methods: {
+            toggleFollow(event) {
+                event.target.disabled = true;
+                this.$axios.$post('interactions/follow',
+                    {
+                        target_type: 'locale',
+                        target_id: this.locale.id,
+                    })
+                    .then(response => {
+                        this.locale.followers = response.data;
+                    })
+                    .catch(error => {
+                        console.log("error");
+                        console.log(error);
+                    }).finally(() => {
+                    event.target.disabled = false;
+                });
+            },
+            infiniteScroll($state) {
+                this.page++
+                this.$axios.get(this.url)
+                    .then((response) => {
+                        if (response.data.data.length > 1) {
+                            const newActivities = [...this.activities, ...response.data.data];
+                            this.activities = newActivities
+                            $state.loaded()
+                        } else {
+                            $state.complete()
+                        }
+                    }).catch((err) => {
+                    console.log(err)
+                })
+            },
+        },
+        computed: {
+            url() {
+                return 'activities/' + this.$route.params.username + '/timeline?page=' + this.page
+            }
+        },
         props: {
             followers: {
                 default: '86 ألف متابع'
@@ -237,10 +161,8 @@
                 default: true
             },
             closestEvent: {
-                default: true
+                default: false
             }
-        },
-        mounted() {
         }
     }
 </script>

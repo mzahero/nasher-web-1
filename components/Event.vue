@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-	<div v-if="event" class="event">
+	<div v-if="event" class="event mt-3">
 		<b-card
 				:img-src="image"
 				:img-alt="event.title"
@@ -44,28 +44,35 @@
 					</template>
 					<div class="post-content" v-html="event.content.formatted"></div>
 				</b-media>
-				<div class="post-actions d-flex mt-3">
+				<div class="post-actions mt-3 d-flex">
 					<attendances :event-id="event.id" :attendances="event.attendances.attendances"
 					             :attendances-count="event.attendances.count"/>
+					<span class=" d-flex align-items-center" @click.once="getComments()">
+						<comment-counter :comments-count="event.comments.count"/>
+					</span>
 					<share-button class="ml-auto"/>
 				</div>
 			</b-card-body>
 			<event-sub-details :event="event" v-if="!image"/>
-			<template v-if="comments.length">
-				<hr class="mt-0">
-				<b-card-body class="py-0">
-					<comment v-for="comment in comments" :avatar="comment.avatar" :liked-by-official="comment.likedByOfficial"
-					         :name="comment.name" :content="comment.content"/>
-				</b-card-body>
+			<template v-if="showCommentSection">
+				<template v-if="comments.length">
+					<hr class="mt-0">
+					<b-card-body class="py-0">
+						<comment v-for="comment in comments" :comment-prop="comment"/>
+						<div v-if="commentNextPage">
+							<b-button @click="getComments()" class="pl-5 margin-auto text-muted" variant="">أظهر المزيد</b-button>
+						</div>
+					</b-card-body>
+				</template>
+				<b-card-footer v-if="event.isCommentable">
+					<b-media vertical-align="center">
+						<template v-slot:aside>
+							<img :src="$store.state.user.user.avatar" alt="user image" class="rounded-circle profile-image">
+						</template>
+						<Input placeholder="اكتب تعليق جديد…" @keyup.enter.native="addComment($event)" class="bg-white"/>
+					</b-media>
+				</b-card-footer>
 			</template>
-			<b-card-footer v-if="event.commentable">
-				<b-media vertical-align="center">
-					<template v-slot:aside>
-						<img src="https://picsum.photos/200/200" alt="user image" class="rounded-circle profile-image">
-					</template>
-					<Input placeholder="اكتب تعليق جديد…" class="bg-white"/>
-				</b-media>
-			</b-card-footer>
 		</b-card>
 	</div>
 </template>
@@ -76,86 +83,74 @@
     import Input from "./Input";
     import EventSubDetails from "./EventSubDetails";
     import Comment from "./Comment";
+    import CommentCounter from "./CommentCounter";
 
     export default {
-        components: {EventSubDetails, Input, ShareButton, Attendances, Comment},
+        components: {CommentCounter, EventSubDetails, Input, ShareButton, Attendances, Comment},
         computed: {
             image: function () {
-                //return (this.event.images.length) ? this.event.images[0] : ''
-                return ''
+                return (this.event.images.length) ? this.event.images[0] : ''
+            }
+        },
+        data() {
+            return {
+                comments: [],
+                commentsPage: 1,
+                commentNextPage: null,
+                pageCreatedTime: this.$moment().format('YYYY-MM-DD HH:mm:ss'),
+                showCommentSection : false
+            }
+        },
+        methods: {
+            getComments() {
+                this.showCommentSection = true;
+                if (this.event.comments.count > 0) {
+                    this.$axios.$get('comments', {
+                        params: {
+                            per_page: 3,
+                            commentable_type: 'event',
+                            commentable_id: this.event.id,
+                            page: this.commentsPage,
+                            before: this.pageCreatedTime
+                        }
+                    })
+                        .then(response => {
+                            const newComments = [...this.comments, ...response.data];
+                            this.comments = newComments
+                            this.commentNextPage = response.links.next
+                            this.commentsPage++
+                        })
+                        .catch(error => {
+                            console.log("error");
+                            console.log(error);
+                        }).finally(() => {
+                    });
+                }
+            },
+            addComment(event) {
+                event.target.disabled = true;
+                this.$axios.$post('comments',
+                    {
+                        commentable_type: 'event',
+                        commentable_id: this.event.id,
+                        content: event.target.value
+                    })
+                    .then(response => {
+                        this.comments.push(response.data);
+                        this.event.comments.count = parseInt(this.event.comments.count) + 1
+                    })
+                    .catch(error => {
+                        console.log("error");
+                        console.log(error);
+                    }).finally(() => {
+                    event.target.disabled = false;
+                    event.target.value = ''
+                });
             }
         },
         props: {
             event: {
                 default: null
-            },
-            'commentable': {
-                default: true
-            },
-            'avatar': {
-                default: 'https://picsum.photos/200/200'
-            },
-            'name': {
-                default: 'Name'
-            },
-            'postedBy': {
-                default: 'postedBy'
-            },
-            'timestamp': {
-                default: 'Timestamp'
-            },
-            'month': {
-                default: 'اكتوبر'
-            },
-            'day': {
-                default: '21'
-            },
-            'location': {
-                default: 'الرياض, المملكة العربية السعودية'
-            },
-            'time': {
-                default: '12:00PM'
-            },
-            'content': {
-                default: '<h3>عنوان المنشور</h3><p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق</p>'
-            },
-            'comments': {
-                default: [
-                    {
-                        avatar: 'https://picsum.photos/800/350',
-                        likedByOfficial: false,
-                        name: 'صاحب التعليق',
-                        content: 'إن هذا هو نص التعليق الافتراضي'
-                    },
-                    {
-                        avatar: 'https://picsum.photos/800/350',
-                        likedByOfficial: false,
-                        name: 'صاحب التعليق',
-                        content: 'إن هذا هو نص التعليق الافتراضي'
-                    },
-                ]
-            },
-            'title': {
-                default: 'Post Title'
-            },
-            'attendancesCount': {
-                default: 2
-            },
-            'attendances': {
-                default: [
-                    {
-                        img: 'https://picsum.photos/38/38',
-                        name: 'Hussam'
-                    },
-                    {
-                        img: 'https://picsum.photos/38/38',
-                        name: 'Hussam'
-                    },
-                    {
-                        img: 'https://picsum.photos/38/38',
-                        name: 'Hussam'
-                    }
-                ]
             }
         }
     }

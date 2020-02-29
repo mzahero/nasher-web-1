@@ -1,16 +1,16 @@
 <template>
-	<b-media class="comment mb-3">
-		<template v-slot:aside >
-			<img :src="avatar" alt="user image" class="rounded-circle profile-image">
+	<b-media class="comment mb-3" v-if="comment">
+		<template v-slot:aside>
+			<img :src="comment.user.avatar" alt="user image" class="rounded-circle profile-image">
 		</template>
 		<div class="content d-flex align-items-start">
 			<div class="box rounded">
-				<div class="liked-by-official text-success" v-if="likedByOfficial">
-					<i class="fa fa-heart mr-1"></i>
-					تم الاعجاب بواسطة الجهة المحلية
-				</div>
-				<span class="user-name" v-text="name"></span>
-				<span class="comment-text" v-text="content"></span>
+				<!--<div class="liked-by-official text-success" v-if="likedByOfficial">-->
+				<!--<i class="fa fa-heart mr-1"></i>-->
+				<!--تم الاعجاب بواسطة الجهة المحلية-->
+				<!--</div>-->
+				<span class="user-name" v-text="comment.user.name"></span>
+				<span class="comment-text" v-html="comment.content.formatted"></span>
 			</div>
 			<b-dropdown class="comment-options" no-caret variant="link">
 				<template slot="button-content">
@@ -21,34 +21,48 @@
 			</b-dropdown>
 		</div>
 		<div class="comment-actions pt-2">
-			<a :class="{'text-success' : likedByOfficial || isLiked}" href="" v-text="isLiked ? 'أعجبني' : 'إعجاب'"></a>
-			<span class="ml-2" v-text="timestamp"></span>
+			<a href="javascript:void(0);" @click="toggleLike($event)" :class="{'text-success' : comment.likes.isLiked}"
+			   v-text="comment.likes.isLiked ? 'أعجبني' : 'إعجاب'"></a>
+			<span class="ml-2" v-text="comment.createdAt.diffForHumans"></span>
 		</div>
 	</b-media>
 </template>
 
 <script>
     export default {
+        methods: {
+            toggleLike(event) {
+                this.comment.likes = (this.comment.likes.isLiked) ? {
+                    isLiked: false
+                } : {
+                    isLiked: true
+                };
+
+                this.$axios.$post('interactions/like', {
+                    target_type: 'comment',
+                    target_id: this.comment.id
+                })
+                    .then(response => {
+                        this.comment.likes = response.data;
+                    })
+                    .catch(error => {
+                        console.log("error");
+                        console.log(error);
+                    }).finally(() => {
+                });
+            }
+        },
+        data() {
+            return {
+                comment: null
+            }
+        },
+        created() {
+            this.comment = this.commentProp
+        },
         props: {
-            name : {
-                required : true,
-		            default: 'صاحب التعليق'
-            },
-            avatar : {
-                required : true,
-                default: 'https://picsum.photos/32/32'
-            },
-            likedByOfficial:{
-                default: false
-            },
-            isLiked:{
-                default: false
-            },
-            timestamp :{
-                default: 'timestamp'
-            },
-            content :{
-                default: 'نص التعليق'
+            commentProp: {
+                required: true
             }
         }
     }
@@ -58,35 +72,35 @@
 	@import "../assets/scss/variables";
 	@import "../assets/scss/helpers";
 
-	.comment{
-		.content{
-			.box{
-				.liked-by-official{
+	.comment {
+		.content {
+			.box {
+				.liked-by-official {
 					font-size: 10px;
 					font-weight: 500;
 				}
 				padding: 15px;
 				background-color: #eff0f2;
 				font-size: 14px;
-				.user-name{
+				.user-name {
 					font-size: 16px;
 					font-weight: 500;
 				}
-				.comment-text{
+				.comment-text {
 					color: #767676;
 				}
 			}
 		}
-		.comment-actions{
+		.comment-actions {
 			padding-right: 15px;
 			font-size: 12px;
 			font-weight: 500;
 			color: #767676;
-			a{
+			a {
 				color: #767676;
 			}
 
-			.like{
+			.like {
 
 			}
 		}
@@ -98,7 +112,9 @@
 				color: #767676;
 				opacity: 0.5;
 			}
-			&:hover .dots{opacity: 1;}
+			&:hover .dots {
+				opacity: 1;
+			}
 		}
 	}
 </style>

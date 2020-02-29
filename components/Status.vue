@@ -28,7 +28,9 @@
 					<div class="overflow-hidden iframe-container" v-if="status.embed" v-html="status.embed.code"></div>
 					<div class="post-actions d-flex mt-3">
 						<like-counter :status="status" class="mr-3"/>
-						<comment-counter :comments-count="comments.length"/>
+						<span class=" d-flex align-items-center" @click.once="getComments()">
+							<comment-counter :comments-count="status.comments.count"/>
+						</span>
 						<share-button :dropup="status.images.length > 1" class="ml-auto"/>
 					</div>
 				</b-media>
@@ -36,15 +38,18 @@
 			<template v-if="comments.length">
 				<hr class="mt-0">
 				<b-card-body class="py-0">
-					<comment v-for="comment in comments" :avatar="comment.avatar" :liked-by-official="comment.likedByOfficial" :name="comment.name" :content="comment.content" :is-liked="comment.isLiked" :timestamp="comment.timestamp"/>
+					<comment v-for="comment in comments" :comment-prop="comment"/>
+					<div v-if="commentNextPage">
+						<b-button @click="getComments()" class="pl-5 margin-auto text-muted" variant="">أظهر المزيد</b-button>
+					</div>
 				</b-card-body>
 			</template>
-			<b-card-footer v-if="status.commentable">
+			<b-card-footer v-if="status.isCommentable">
 				<b-media vertical-align="center">
 					<template v-slot:aside>
-						<img src="https://picsum.photos/200/200" alt="user image" class="rounded-circle profile-image">
+						<img :src="$store.state.user.user.avatar" alt="user image" class="rounded-circle profile-image">
 					</template>
-					<Input placeholder="اكتب تعليق جديد…" class="bg-white"/>
+					<Input placeholder="اكتب تعليق جديد…" @keyup.enter.native="addComment($event)" class="bg-white"/>
 				</b-media>
 			</b-card-footer>
 		</b-card>
@@ -60,66 +65,66 @@
 
     export default {
         components: {Comment, Input, ShareButton, CommentCounter, LikeCounter},
-        props: {
-            status : {
-							default: null,
+        data() {
+            return {
+                comments: [],
+                commentsPage: 1,
+                commentNextPage: null,
+		            pageCreatedTime : this.$moment().format('YYYY-MM-DD HH:mm:ss')
+            }
+        },
+        methods: {
+            getComments() {
+                if(this.status.comments.count > 0){
+                    this.$axios.$get('comments', {
+                        params: {
+                            per_page: 3,
+                            commentable_type: 'status',
+                            commentable_id: this.status.id,
+                            page: this.commentsPage,
+                            before: this.pageCreatedTime
+                        }
+                    })
+                        .then(response => {
+                            const newComments = [...this.comments, ...response.data];
+                            this.comments = newComments
+                            this.commentNextPage = response.links.next
+                            this.commentsPage++
+                        })
+                        .catch(error => {
+                            console.log("error");
+                            console.log(error);
+                        }).finally(() => {
+                    });
+                }
             },
-            'commentable' : {
-                default: true
+            addComment(event) {
+                event.target.disabled = true;
+                this.$axios.$post('comments',
+                    {
+                        commentable_type: 'status',
+                        commentable_id: this.status.id,
+                        content: event.target.value
+                    })
+                    .then(response => {
+                        this.comments.push(response.data);
+                        this.status.comments.count = parseInt(this.status.comments.count) + 1
+                    })
+                    .catch(error => {
+                        console.log("error");
+                        console.log(error);
+                    }).finally(() => {
+                    event.target.disabled = false;
+                    event.target.value = ''
+                });
+            }
+        },
+        props: {
+            status: {
+                default: null,
             },
             'header': {
                 default: ''
-            },
-            'avatar': {
-                default: 'https://picsum.photos/200/200'
-            },
-            'name': {
-                default: 'Name'
-            },
-            'postedBy': {
-                default: 'postedBy'
-            },
-            'timestamp': {
-                default: 'Timestamp'
-            },
-            'content': {
-                default: '<h3>عنوان المنشور</h3><p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق</p>'
-            },
-            'images': {
-                default: [
-                    'https://picsum.photos/800/350',
-                    'https://picsum.photos/800/350',
-                    'https://picsum.photos/800/350'
-                ]
-            },
-            'comments': {
-                default: [
-		                {
-                        avatar : 'https://picsum.photos/800/350',
-                        likedByOfficial : false,
-                        name : 'صاحب التعليق',
-                        content : 'إن هذا هو نص التعليق الافتراضي',
-				                isLiked: false,
-                        timestamp: 'منذ 35 دقيقة'
-		                },
-                    {
-                        avatar : 'https://picsum.photos/800/350',
-                        likedByOfficial : false,
-                        name : 'صاحب التعليق',
-                        content : 'إن هذا هو نص التعليق الافتراضي',
-                        isLiked: true,
-                        timestamp: 'منذ 20 دقيقة'
-                    },
-                ]
-            },
-            'title': {
-                default: 'Post Title'
-            },
-		        likesCount:{
-                default: 4
-		        },
-            isLiked:{
-                default: false
             }
         }
     }
@@ -130,7 +135,7 @@
 	@import "../assets/scss/helpers";
 
 	.post {
-		.iframe-container > iframe{
+		.iframe-container > iframe {
 			width: 100%;
 			border-radius: 0.25rem;
 		}

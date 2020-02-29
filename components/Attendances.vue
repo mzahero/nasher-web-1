@@ -35,6 +35,7 @@
 						<LazyLoadAttendance/><LazyLoadAttendance/>
 					</div>
 					<div slot="no-more"></div>
+					<div slot="no-results"></div>
 				</infinite-loading>
 			</b-list-group>
 		</b-modal>
