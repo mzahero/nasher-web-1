@@ -2,9 +2,15 @@
 	<div class="communities">
 		<b-card class="mb-3">
 			<SectionTitle class="mt-0">بماذا انت مهتم؟</SectionTitle>
-			<div class="owl-carousel owl-four-items">
-				<Interest v-for="interest in interests" :img="interest.img" :title="interest.title"
-				          :selectable="true"></Interest>
+			<div class="">
+				<multiselect dir="rtl" :options="categories" v-model="selectedCategories" track-by="id" label="title"
+				             group-values="children" group-label="title" :group-select="true" :multiple="true">
+					<template slot="singleLabel" slot-scope="props">
+						<div class="text-right">{{ props.option.title }}</div>
+					</template>
+					<template slot="noResult">لا يوجد نتائج!</template>
+				</multiselect>
+				<b-button class="mt-2" @click="locales = []; page = 0; infiniteScroll()" variant="success" rounded>فلتر</b-button>
 			</div>
 		</b-card>
 
@@ -54,32 +60,58 @@
         layout: 'app',
 
         components: {SectionTitle, Interest, LazyLoadLocale, LocaleCard},
-        props: {
-            interests: {
-                default: [
-                    {img: 'https://picsum.photos/130/110', title: 'التاريخ والفلسفة'},
-                    {img: 'https://picsum.photos/130/110', title: 'العلوم الإنسانية'},
-                    {img: 'https://picsum.photos/130/110', title: 'الرياضة'},
-                    {img: 'https://picsum.photos/130/110', title: 'السياسة'},
-                    {img: 'https://picsum.photos/130/110', title: 'آخرى'}
-                ]
-            },
-        },
         data: function () {
             return {
                 locales: [],
                 page: 0,
+                selectedCategories: [],
+                categories: [
+                    {
+                        title: 'Main Cat 1',
+                        id: 11,
+                        children: [
+                            {title: 'Sub Cat 1', id: 22},
+                            {title: 'Sub Cat 2', id: 23},
+                            {title: 'Sub Cat 3', id: 24},
+                        ],
+                    },
+                    {
+                        title: 'Main Cat 2',
+                        id: 14,
+                        children: [
+                            {title: 'Sub Cat 1', id: 25},
+                            {title: 'Sub Cat 2', id: 26},
+                            {title: 'Sub Cat 3', id: 27},
+                        ],
+                    },
+                    {
+                        title: 'Main Cat 1',
+                        id: 15,
+                        children: [
+                            {title: 'Sub Cat 1', id: 21},
+                            {title: 'Sub Cat 2', id: 22},
+                            {title: 'Sub Cat 3', id: 25},
+                        ],
+                    },
+                ]
             }
         },
         computed: {
-            url() {
-                return 'locales?page=' + this.page
-            }
+		        selectedCategoriesIds(){
+                return this.selectedCategories.map(function (el) {
+		                return el.id
+                })
+		        }
         },
         methods: {
             infiniteScroll($state) {
                 this.page++
-                this.$axios.get(this.url)
+                this.$axios.get('locales',{
+                    params : {
+                        page : this.page,
+		                    subcategories : this.selectedCategoriesIds
+                    }
+                })
                     .then((response) => {
                         if (response.data.data.length > 1) {
                             const newLocales = [...this.locales, ...response.data.data];
@@ -94,12 +126,7 @@
             },
         },
         mounted() {
-            $('.owl-four-items').owlCarousel({
-                items: 4,
-                dots: false,
-                rtl: true,
-                margin: 10
-            });
+
         }
     }
 </script>

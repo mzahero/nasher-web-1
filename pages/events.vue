@@ -4,202 +4,137 @@
 			<SectionTitle class="mt-0">الفعاليات القادمة</SectionTitle>
 			<div class="text-center row">
 				<div class="col-6 col-sm-3 p-2">
-					<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
+					<div class="rounded text-white p-2" @click="happening = 'today'; startDate = endDate = null"
+					     :class="happening === 'today' ? 'bg-primary' : 'bg-info'">
 						اليوم
 					</div>
 				</div>
 				<div class="col-6 col-sm-3 p-2">
-					<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
+					<div class="rounded text-white p-2" @click="happening = 'tomorrow'; startDate = endDate = null"
+					     :class="happening === 'tomorrow' ? 'bg-primary' : 'bg-info'">
 						غداً
 					</div>
 				</div>
 				<div class="col-6 col-sm-3 p-2">
-					<div class="rounded text-white p-2 bg-primary">
+					<div class="rounded text-white p-2" @click="happening = 'thisweek'; startDate = endDate = null"
+					     :class="happening === 'thisweek' ? 'bg-primary' : 'bg-info'">
 						هذا الأسبوع
 					</div>
 				</div>
 				<div class="col-6 col-sm-3 p-2">
-					<div class="rounded text-white p-2" style="background-color: #2aa5a1;">
+					<div class="rounded text-white p-2" @click="openDatesSection = true" :class="happening ? 'bg-info' : 'bg-primary'">
 						اختر التاريخ
 					</div>
 				</div>
 			</div>
-		</b-card>
-		<!--Start posts-->
-
-		<LazyLoadLocale v-if="loading"/>
-
-		<event
-				:commentable="true"
-				avatar="https://picsum.photos/110/110"
-				name="الهيئة العامة للترفيه"
-				posted-by="تم النشر بواسطة أحمد باشا"
-				timestamp="منذ 45 دقيقة مضت"
-				month="اكتوبر"
-				day="23"
-				content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-				image="https://picsum.photos/700/350"
-				:comments="[]"
-				title="عنوان الحدث"
-				attendances-count="10"
-				:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-		/>
-
-		<event
-				:commentable="true"
-				avatar="https://picsum.photos/110/110"
-				name="الهيئة العامة للترفيه"
-				posted-by="تم النشر بواسطة أحمد باشا"
-				timestamp="منذ 45 دقيقة مضت"
-				month="اكتوبر"
-				day="23"
-				content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-				image="https://picsum.photos/700/350"
-				:comments="[]"
-				title="عنوان الحدث"
-				attendances-count="10"
-				:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-		/>
-
-		<event
-				:commentable="true"
-				avatar="https://picsum.photos/110/110"
-				name="الهيئة العامة للترفيه"
-				posted-by="تم النشر بواسطة أحمد باشا"
-				timestamp="منذ 45 دقيقة مضت"
-				month="اكتوبر"
-				day="23"
-				content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-				image="https://picsum.photos/700/350"
-				:comments="[]"
-				title="عنوان الحدث"
-				attendances-count="10"
-				:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-		/>
-
-		<event
-				:commentable="true"
-				avatar="https://picsum.photos/110/110"
-				name="الهيئة العامة للترفيه"
-				posted-by="تم النشر بواسطة أحمد باشا"
-				timestamp="منذ 45 دقيقة مضت"
-				month="اكتوبر"
-				day="23"
-				content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-				image="https://picsum.photos/700/350"
-				:comments="[]"
-				title="عنوان الحدث"
-				attendances-count="10"
-				:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-		/>
-
-		<event
-				:commentable="true"
-				avatar="https://picsum.photos/110/110"
-				name="الهيئة العامة للترفيه"
-				posted-by="تم النشر بواسطة أحمد باشا"
-				timestamp="منذ 45 دقيقة مضت"
-				month="اكتوبر"
-				day="23"
-				content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-				image="https://picsum.photos/700/350"
-				:comments="[]"
-				title="عنوان الحدث"
-				attendances-count="10"
-				:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-		/>
-
-		<event
-				:commentable="true"
-				avatar="https://picsum.photos/110/110"
-				name="الهيئة العامة للترفيه"
-				posted-by="تم النشر بواسطة أحمد باشا"
-				timestamp="منذ 45 دقيقة مضت"
-				month="اكتوبر"
-				day="23"
-				content="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى."
-				image="https://picsum.photos/700/350"
-				:comments="[]"
-				title="عنوان الحدث"
-				attendances-count="10"
-				:attendances="[
-					{img : 'https://picsum.photos/50/50', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/60/60', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/70/70', title: 'أحمد باشا'},
-					{img : 'https://picsum.photos/80/80', title: 'أحمد باشا'}
-				]"
-		/>
-
-		<!--End posts-->
-		<b-card class="mb-3 text-center">
-			<p class="text-muted">هنا تكون نهاية المطاف للمزيد قم بـ</p>
-			<div class="buttons">
-				<B-button class="m-2" rounded variant="outline-secondary">تغيير الموقع الجغرافي</B-button>
-				<b-button class="m-2" rounded variant="outline-secondary">متابعة محتوى ناشر</b-button>
+			<div class="row mt-2" v-show="openDatesSection">
+				<div class="col-sm-4">
+					<SectionTitle class="mt-0">من التاريخ</SectionTitle>
+					<div class="form-group">
+						<datetime input-class="form-control" v-model="startDate"/>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<SectionTitle class="mt-0">إلى التاريخ</SectionTitle>
+					<div class="form-group">
+						<datetime input-class="form-control" v-model="endDate"/>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<SectionTitle class="mt-0">فلتر</SectionTitle>
+					<b-button class="mt-1" block variant="success"
+					          @click="happening = null;" rounded>فلتر
+					</b-button>
+				</div>
 			</div>
 		</b-card>
+
+		<template v-if="events" v-for="event in events">
+			<event :event="event"/>
+		</template>
+		<infinite-loading ref="infinite" @infinite="infiniteScroll">
+			<div slot="spinner">
+				<LazyLoadEvent/>
+			</div>
+			<div slot="no-more">
+				<b-card class="mb-3 text-center">
+					<p class="text-muted">هنا تكون نهاية المطاف للمزيد قم بـ</p>
+					<div class="buttons">
+						<B-button class="m-2" rounded variant="outline-secondary">تغيير الموقع الجغرافي</B-button>
+						<b-button class="m-2" rounded variant="outline-secondary">متابعة محتوى ناشر</b-button>
+					</div>
+				</b-card>
+			</div>
+			<div slot="no-results">
+				<b-card class="mb-3 text-center">
+					<p class="text-muted">هنا تكون نهاية المطاف للمزيد قم بـ</p>
+					<div class="buttons">
+						<B-button class="m-2" rounded variant="outline-secondary">تغيير الموقع الجغرافي</B-button>
+						<b-button class="m-2" rounded variant="outline-secondary">متابعة محتوى ناشر</b-button>
+					</div>
+				</b-card>
+			</div>
+		</infinite-loading>
+
 	</div>
 </template>
 
 <script>
-    import Interest from "../components/Interest";
     import SectionTitle from "../components/SectionTitle";
-    import Post from "../components/Status";
     import Event from "../components/Event";
-    import LazyLoadLocale from "../components/LazyLoadLocale";
-    import {mapGetters} from 'vuex'
+    import LazyLoadEvent from "../components/LazyLoadEvent";
+    import DateTime from "../components/DateTime";
 
     export default {
         layout: 'app',
-
+        loading: false,
         components: {
+            DateTime,
             Event,
-            Interest,
             SectionTitle,
-            Post,
-            LazyLoadLocale
+            LazyLoadEvent,
         },
-        props: {
-            interests: {
-                default: [
-                    {img: 'https://picsum.photos/130/110', title: 'التاريخ والفلسفة'},
-                    {img: 'https://picsum.photos/130/110', title: 'العلوم الإنسانية'},
-                    {img: 'https://picsum.photos/130/110', title: 'الرياضة'},
-                    {img: 'https://picsum.photos/130/110', title: 'السياسة'},
-                    {img: 'https://picsum.photos/130/110', title: 'آخرى'}
-                ]
+        data: function () {
+            return {
+                events: [],
+                page: 0,
+                happening: 'thisweek',
+                startDate: null,
+                endDate: null,
+                openDatesSection : false
             }
         },
-        computed: mapGetters({
-            events: 'events/get',
-        }),
-        mounted() {
-
+        watch: {
+            'happening': function () {
+                this.events = [];
+                this.page = 0;
+                this.$refs.infinite.stateChanger.reset();
+            },
+        },
+        methods: {
+            infiniteScroll($state) {
+                this.page++
+                this.$axios.get('events', {
+                    params: {
+                        page: this.page,
+                        order_by: 'happening_at',
+                        happening: this.happening,
+                        [`between[start]`]: this.startDate,
+                        [`between[end]`]: this.endDate,
+                    }
+                })
+                    .then((response) => {
+                        if (response.data.data.length) {
+                            const newEvents = [...this.events, ...response.data.data];
+                            this.events = newEvents
+                            $state.loaded()
+                        } else {
+                            $state.complete()
+                        }
+                    }).catch((err) => {
+                    console.log(err)
+                })
+            },
         }
     }
 </script>
