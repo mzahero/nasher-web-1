@@ -10,7 +10,7 @@
 					</template>
 					<template slot="noResult">لا يوجد نتائج!</template>
 				</multiselect>
-				<b-button class="mt-2" @click="locales = []; page = 0; infiniteScroll()" variant="success" rounded>فلتر</b-button>
+				<b-button class="mt-2" @click="locales = []; page = 0; $refs.infinite.stateChanger.reset();" variant="success" rounded>فلتر</b-button>
 			</div>
 		</b-card>
 
@@ -29,7 +29,7 @@
 			</div>
 		</div>
 
-		<infinite-loading @infinite="infiniteScroll">
+		<infinite-loading ref="infinite" @infinite="infiniteScroll">
 			<div slot="spinner" class="row">
 				<LazyLoadLocale class="col-6 col-lg-4 mb-3"/>
 				<LazyLoadLocale class="col-6 col-lg-4 mb-3"/>
@@ -109,6 +109,7 @@
                 this.$axios.get('locales',{
                     params : {
                         page : this.page,
+		                    per_page: 9,
 		                    subcategories : this.selectedCategoriesIds
                     }
                 })
