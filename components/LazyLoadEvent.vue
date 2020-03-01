@@ -41,7 +41,7 @@
 
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	.animation {
 		animation-duration: 1s;
 		animation-fill-mode: forwards;

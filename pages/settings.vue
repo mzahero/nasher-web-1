@@ -57,7 +57,7 @@
 				<b-list-group-item class="position-relative d-flex">
 					<span class="option-title fixed-width">المدينة</span>
 					<span class="option-value w-100">
-					<multiselect dir="rtl" class="w-50" :options="cities" v-model="user.city" track-by="title" label="title"
+					<multiselect dir="rtl" class="w-50" :options="cities" v-model="user.city_id" track-by="id" label="title"
 					             :allow-empty="false"
 					             select-label="" selected-label="" deselect-label="" placeholder="">
 						<template slot="singleLabel" slot-scope="props">
@@ -100,7 +100,7 @@
 				<b-list-group-item class="position-relative d-flex">
 					<span class="option-title fixed-width">الإشعارات</span>
 					<span class="option-value w-100">
-					<toggle-button class="mb-0" v-model="user.notifications"/>
+					<toggle-button class="mb-0" v-model="user.meta.notifications.email"/>
 				</span>
 				</b-list-group-item>
 			</b-list-group>
@@ -109,7 +109,7 @@
 			<b-list-group class="p-0">
 				<b-list-group-item class="position-relative d-flex">
 				<span class="option-value w-100">
-					<textarea rows="4" class="border-0 w-100" v-model="user.bio.raw"></textarea>
+					<textarea rows="4" class="border-0 w-100" v-model="user.bio">{{ user.bio.formatted }}</textarea>
 				</span>
 				</b-list-group-item>
 			</b-list-group>

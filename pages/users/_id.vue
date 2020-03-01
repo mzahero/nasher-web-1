@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-	<div class="profile-page">
+	<div class="profile-page" v-if="user">
 		<b-card
 				:img-src="user.cover ? user.cover : 'https://dummyimage.com/700x250/eff0f2/eff0f2.gif'"
 				:img-alt="user.name"
@@ -23,11 +23,11 @@
 					</b-dropdown>
 					<div class="name">{{ user.name }}</div>
 					<div class="description pb-3">
-						<span v-html="user.bio.raw"></span>
+						<span v-html="user.bio.formatted"></span>
 					</div>
 				</b-media>
 				<div class="bio pb-3">
-					<p v-html="user.bio.raw"></p>
+					<p v-html="user.bio.formatted"></p>
 				</div>
 				<div class="links d-flex">
 					<div class="location d-flex align-items-center mr-3">
@@ -45,27 +45,77 @@
 		</b-card>
 		<section-title>متابع لهذه الجهات</section-title>
 		<div class="row pt-2">
-			<div v-for="locale in user.locales" class="col-6 col-lg-4 mb-3">
+			<div v-for="locale in followings" class="col-6 col-lg-4 mb-3">
 				<LocaleCard :locale="locale"/>
 			</div>
 		</div>
+		<infinite-loading @infinite="infiniteScroll">
+			<div slot="spinner">
+				<div class="row">
+					<div class="col-6 col-lg-4 mb-3">
+						<lazyLoadLocale/>
+					</div>
+					<div class="col-6 col-lg-4 mb-3">
+						<lazyLoadLocale/>
+					</div>
+					<div class="col-6 col-lg-4 mb-3">
+						<lazyLoadLocale/>
+					</div>
+				</div>
+			</div>
+			<div slot="no-more"></div>
+			<div slot="no-results"></div>
+		</infinite-loading>
 	</div>
 </template>
 
 <script>
     import SectionTitle from "../../components/SectionTitle";
     import LocaleCard from "../../components/LocaleCard";
+    import LazyLoadLocale from "../../components/LazyLoadLocale";
 
     export default {
         layout: 'app',
-        components: {LocaleCard, SectionTitle},
-        props: {
-
-        },
-        computed: {
-            user: function () {
-                return this.$store.state.user.user;
+        components: {LazyLoadLocale, LocaleCard, SectionTitle},
+        props: {},
+        data() {
+            return {
+                user: null,
+                followings: [],
+                followingsPage: 0
             }
+        },
+        methods: {
+            infiniteScroll($state) {
+                this.followingsPage++
+                this.$axios.get('users/' + this.$route.params.id + '/followings', {
+                    params : {
+                        page : this.followingsPage,
+                        per_page : 9,
+                    }
+                })
+                    .then((response) => {
+                        if (response.data.data.length > 1) {
+                            const newFollowings = [...this.followings, ...response.data.data];
+                            this.followings = newFollowings
+                            $state.loaded()
+                        } else {
+                            $state.complete()
+                        }
+                    }).catch((err) => {
+                    console.log(err)
+                })
+            },
+        },
+        async created() {
+            await this.$axios.$get('users/' + this.$route.params.id)
+                .then(response => {
+                    this.user = response.data;
+                })
+                .catch(error => {
+                    console.log("error");
+                    console.log(error);
+                });
         }
     }
 </script>

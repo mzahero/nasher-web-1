@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="mb-3">
 		<b-tabs content-class="p-3" nav-class="custom-nav" active-nav-item-class="bg-white" fill>
 			<b-tab title="إنشاء منشور" active>
 				<b-media no-body>
