@@ -34,7 +34,7 @@
 							<SectionTitle classes="px-3">
 								<slot>جهاتي</slot>
 								<template v-slot:link="">
-									<nuxt-link to="/new-community">
+									<nuxt-link to="/locales/add">
 										أضف جهة جديدة<i class="far fa-plus"></i>
 									</nuxt-link>
 								</template>
@@ -278,7 +278,7 @@
             }
         },
         computed: {
-            user: function () {
+            user() {
                 return this.$store.state.user.user
             }
         },

@@ -19,6 +19,14 @@
         middleware: 'auth',
         components: {
             Header
+        },
+        computed: {
+            user: function () {
+                return this.$store.state.user.user
+            }
+        },
+        created() {
+            this.$store.commit('user/set', this.$auth.user)
         }
     }
 </script>

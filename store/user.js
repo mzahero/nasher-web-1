@@ -11,5 +11,8 @@ export const getters = {
 export const mutations = {
     set(state, user) {
         state.user = user
+    },
+    addLocale(state, newLocale){
+        state.user.locales.push(newLocale)
     }
 }

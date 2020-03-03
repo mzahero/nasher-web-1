@@ -1,6 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<NuxtChild v-if="$route.params.status" :key="$route.params.status" ></NuxtChild>
 	<NuxtChild v-else-if="$route.params.event" :key="$route.params.event" ></NuxtChild>
+	<NuxtChild v-else-if="$route.name === 'locales-username-edit'" key="locales-username-edit"></NuxtChild>
 	<div v-else class="community-page">
 		<div v-if="!locale">
 			<lazyLoadProfile/>
@@ -27,10 +28,13 @@
 							<div class="ml-auto d-flex align-items-center pt-2">
 								<b-dropdown no-caret variant="link">
 									<template slot="button-content">
-										<span class="dots">•••</span>
+										<span class="text-dark dots">•••</span>
 									</template>
-									<b-dropdown-item href="#">•••</b-dropdown-item>
-									<b-dropdown-item href="#">•••</b-dropdown-item>
+									<b-dropdown-item>
+										<nuxt-link class="d-block text-dark" :to="'/locales/edit/' + $route.params.username" v-if="locale.isAdmin">
+											تعديل الجهة
+										</nuxt-link>
+									</b-dropdown-item>
 								</b-dropdown>
 								<div class="follow-btn" v-if="!locale.isAdmin">
 									<b-button @click="toggleFollow($event)" rounded

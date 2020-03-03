@@ -21,7 +21,7 @@
 <script>
     export default {
         middleware ({ store, redirect }) {
-            if (store.state.authUser) {
+            if (store.state.user) {
                 return redirect('/')
             }
         },

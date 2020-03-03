@@ -57,6 +57,7 @@ export default {
     },
 
     plugins: [
+        '@/plugins/axios',
         '@/plugins/google-maps',
         '@/plugins/vue-js-toggle-button',
         '@/plugins/vue-slider-component',
@@ -109,7 +110,7 @@ export default {
                 endpoints: {
                     login: { url: 'login', method: 'post', propertyName: 'data.token' },
                     logout: { url: 'logout', method: 'post' },
-                    user: { url: 'user', method: 'get', propertyName: 'data' }
+                    user: { url: 'users/me', method: 'get', propertyName: 'data' }
                 },
                 tokenRequired: true,
                 tokenType: 'Bearer'

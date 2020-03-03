@@ -32,7 +32,7 @@
 			position: relative;
 			display: block;
 			width: 100%;
-			input {
+			input, textarea {
 				border-radius: 4px;
 				border: 1px $search-input-border-color solid;
 				background-color: transparent;
