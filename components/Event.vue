@@ -38,8 +38,8 @@
 				<b-media class="event-details">
 					<template v-slot:aside>
 						<div class="date-box rounded text-primary text-center">
-							<div class="month" v-text="$moment(event.happeningAt.timestamp).locale('ar').format('MMMM')"></div>
-							<div class="day" v-text="$moment(event.happeningAt.timestamp).format('DD')"></div>
+							<div class="month" v-text="$moment(event.happeningAt.formatted).locale('ar').format('MMMM')"></div>
+							<div class="day" v-text="$moment(event.happeningAt.formatted).format('DD')"></div>
 						</div>
 					</template>
 					<div class="post-content" v-html="event.content.formatted"></div>

@@ -9,7 +9,7 @@
 		</span>
 		<span class="detail d-flex align-items-center mr-2">
 			<i class="far fa-clock icon"></i>
-			<span class="content" v-text="$moment(event.happeningAt.timestamp).format('hh:mmA')"></span>
+			<span class="content" v-text="$moment(event.happeningAt.formatted).format('hh:mmA')"></span>
 		</span>
 	</div>
 </template>
