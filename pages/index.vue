@@ -3,7 +3,7 @@
 		<b-card class="mb-3">
 			<SectionTitle class="mt-0">بماذا انت مهتم؟</SectionTitle>
 			<div class="owl-carousel owl-four-items">
-				<Interest v-for="interest in interests" :img="interest.img" :title="interest.title"></Interest>
+				<Interest v-for="(interest, index) in interests" :key="index" :img="interest.img" :title="interest.title"></Interest>
 			</div>
 		</b-card>
 		<!--Start posts-->

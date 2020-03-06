@@ -40,7 +40,7 @@
 								</template>
 							</SectionTitle>
 							<NavbarLinks>
-								<NavbarLink v-for="locale in user.locales" :link="'/locales/' + locale.username" :image="locale.avatar">{{ locale.name }}</NavbarLink>
+								<NavbarLink v-for="(locale, index) in user.locales" :key="index" :link="'/locales/' + locale.username" :image="locale.avatar">{{ locale.name }}</NavbarLink>
 							</NavbarLinks>
 							<div class="d-md-none">
 								<ul class="nav p-0 row">

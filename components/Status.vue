@@ -23,7 +23,7 @@
 					</div>
 					<div class="post-content" v-html="status.content.formatted"></div>
 					<div :class="{'owl-carousel owl-one-item no-overflow' : status.images.length > 1}" class="mt-2" dir="ltr">
-						<b-img v-for="image in status.images" class="rounded" :src="image" :alt="status.locale.name"></b-img>
+						<b-img v-for="(image, index) in status.images" :key="index" class="rounded" :src="image.url" :alt="status.locale.name"></b-img>
 					</div>
 					<div class="overflow-hidden iframe-container" v-if="status.embed" v-html="status.embed.code"></div>
 					<div class="post-actions d-flex mt-3">
@@ -38,7 +38,7 @@
 			<template v-if="comments.length">
 				<hr class="mt-0">
 				<b-card-body class="py-0">
-					<comment v-for="comment in comments" :comment-prop="comment"/>
+					<comment v-for="(comment, index) in comments" :key="index" :comment-prop="comment"/>
 					<div v-if="commentNextPage">
 						<b-button @click="getComments()" class="pl-5 margin-auto text-muted" variant="">أظهر المزيد</b-button>
 					</div>
@@ -126,6 +126,12 @@
             'header': {
                 default: ''
             }
+        },
+        mounted() {
+            $('.owl-one-item').owlCarousel({
+                items: 1,
+                margin: 10
+            });
         }
     }
 </script>

@@ -58,7 +58,7 @@
 				<template v-if="comments.length">
 					<hr class="mt-0">
 					<b-card-body class="py-0">
-						<comment v-for="comment in comments" :comment-prop="comment"/>
+						<comment v-for="(comment, index) in comments" :key="index" :comment-prop="comment"/>
 						<div v-if="commentNextPage">
 							<b-button @click="getComments()" class="pl-5 margin-auto text-muted" variant="">أظهر المزيد</b-button>
 						</div>

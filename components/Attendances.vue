@@ -3,7 +3,7 @@
 		<div v-b-modal="'attendance-modal' + rand"
 		     class="attendances d-flex align-items-center ">
 			<div class="users">
-				<img v-for="attendance in attendances" :src="attendance.user.avatar" :alt="attendance.user.name"
+				<img v-for="(attendance, index) in attendances" :key="index" :src="attendance.user.avatar" :alt="attendance.user.name"
 				     class="rounded-circle profile-image border border-white">
 			</div>
 			<div class="others ml-2" v-if="others">
@@ -17,7 +17,7 @@
 				<small class="text-muted pl-2"> ينون الحضور</small>
 			</template>
 			<b-list-group class="p-0 overflow-y-scroll" flush>
-				<b-list-group-item class="p-2" v-for="attendance in allAttendances">
+				<b-list-group-item class="p-2" v-for="(attendance, index) in allAttendances" :key="index">
 					<b-media class="p-0" vertical-align="center" no-body>
 						<b-media-aside vertical-align="center">
 							<b-img class="attendance_avatar rounded-circle" :src="attendance.user.avatar"
