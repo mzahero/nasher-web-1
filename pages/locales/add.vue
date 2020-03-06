@@ -320,7 +320,7 @@
                     }
                 })
                     .then(response => {
-                        this.$store.commit('user/addLocale', response.data);
+                        this.$store.commit('user/refreshUser');
                         this.$toast.success('تمت العملية بنجاح');
                         this.$router.push({
                             path: '/locales/' + response.data.username

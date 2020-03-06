@@ -12,7 +12,18 @@ export const mutations = {
     set(state, user) {
         state.user = user
     },
-    addLocale(state, newLocale){
-        state.user.locales.push(newLocale)
+    async refreshUser(state) {
+        await this.$axios.$request({
+            url: '/users/me',
+            method: 'GET'
+        })
+            .then(response => {
+                state.user = response.data;
+            })
+            .catch(error => {
+                let toast = this.$toast;
+                toast.error(error)
+            });
+
     }
 }

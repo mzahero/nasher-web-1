@@ -1,10 +1,13 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<div>
-		<div v-if="!status">
-			<LazyLoadStatus/>
-		</div>
+		<NuxtChild v-if="$route.name === 'locales-username-statuses-status-edit'" key="locales-username-statuses-status-edit"></NuxtChild>
 		<div v-else>
-			<Status :status="status"/>
+			<div v-if="!status">
+				<LazyLoadStatus/>
+			</div>
+			<div v-else>
+				<Status :status="status"/>
+			</div>
 		</div>
 	</div>
 </template>

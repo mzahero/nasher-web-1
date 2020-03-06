@@ -89,7 +89,7 @@
         components: {CommentCounter, EventSubDetails, Input, ShareButton, Attendances, Comment},
         computed: {
             image: function () {
-                return (this.event.images.length) ? this.event.images[0] : ''
+                return (this.event.images.length) ? this.event.images[0].url : ''
             }
         },
         data() {

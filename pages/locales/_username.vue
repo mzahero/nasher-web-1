@@ -69,7 +69,7 @@
 					</div>
 				</b-card-body>
 			</b-card>
-			<create-active v-if="locale.isAdmin" class="bg-white rounded"/>
+			<create-active v-if="locale.isAdmin" class="bg-white rounded" :locale-id="locale.id"/>
 			<template v-if="closestEvent">
 				<section-title>أقرب فعالية</section-title>
 				<event v-if="activity.type === 'event_created'" :event="activity.subject"/>
